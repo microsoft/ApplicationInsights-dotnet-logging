@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Adapters", "Adapters", "{EE933574-C82B-4E59-A0D1-05328197B937}"
 EndProject
@@ -76,6 +76,13 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "NLogTarget.Tests.Shared", "
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "TraceListener.Tests.Shared", "Adapters.Tests\TraceListener.Tests.Shared\TraceListener.Tests.Shared.shproj", "{17EE52DA-5460-4BD2-A70F-529D2A94C938}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{D4156195-3657-4F9B-AAD8-4286F01B91EB}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Adapters\Log4NetAppender.Shared\Log4NetAppender.Shared.projitems*{69b1c4d1-c8e9-44ca-be2a-02b5d1929dc2}*SharedItemsImports = 13
@@ -85,16 +92,16 @@ Global
 		Adapters\Log4NetAppender.Shared\Log4NetAppender.Shared.projitems*{cb555b89-94d7-4b38-92d9-9f497a796966}*SharedItemsImports = 4
 		Adapters.Tests\TraceListener.Tests.Shared\TraceListener.Net40.Tests.Shared.projitems*{e6f03762-6bd6-4b38-8798-42c189aab18c}*SharedItemsImports = 4
 		Adapters.Tests\Shared\Adapters.Shared.Tests.projitems*{e6f03762-6bd6-4b38-8798-42c189aab18c}*SharedItemsImports = 4
-		Adapters.Tests\Shared\Adapters.Shared.Tests.projitems*{c6abc49c-5cf0-40ff-9114-423232339382}*SharedItemsImports = 4
 		Adapters.Tests\Log4NetAppender.Tests.Shared\Log4NetAppender.Net40.Tests.Shared.projitems*{c6abc49c-5cf0-40ff-9114-423232339382}*SharedItemsImports = 4
+		Adapters.Tests\Shared\Adapters.Shared.Tests.projitems*{c6abc49c-5cf0-40ff-9114-423232339382}*SharedItemsImports = 4
 		Adapters.Tests\TraceListener.Tests.Shared\TraceListener.Net40.Tests.Shared.projitems*{96b3afdb-abc4-4df2-a46d-de4286e4bb1f}*SharedItemsImports = 4
 		Adapters.Tests\Shared\Adapters.Shared.Tests.projitems*{96b3afdb-abc4-4df2-a46d-de4286e4bb1f}*SharedItemsImports = 4
 		Adapters\NLogTarget.Shared\NLogTarget.Shared.projitems*{6c581dda-88af-4a64-984d-e275f2f21100}*SharedItemsImports = 4
 		Adapters.Tests\NLogTarget.Tests.Shared\NLogTarget.Net40.Tests.SharedProject.projitems*{6513ef9f-5a84-47cd-be3e-34f7706a1868}*SharedItemsImports = 4
 		Adapters.Tests\Shared\Adapters.Shared.Tests.projitems*{6513ef9f-5a84-47cd-be3e-34f7706a1868}*SharedItemsImports = 4
 		Adapters.Tests\TraceListener.Tests.Shared\TraceListener.Net40.Tests.Shared.projitems*{17ee52da-5460-4bd2-a70f-529d2a94c938}*SharedItemsImports = 13
-		Adapters.Tests\Shared\Adapters.Shared.Tests.projitems*{c537553e-c7d0-42e4-884f-10a9c6063d4a}*SharedItemsImports = 4
 		Adapters.Tests\Log4NetAppender.Tests.Shared\Log4NetAppender.Net40.Tests.Shared.projitems*{c537553e-c7d0-42e4-884f-10a9c6063d4a}*SharedItemsImports = 4
+		Adapters.Tests\Shared\Adapters.Shared.Tests.projitems*{c537553e-c7d0-42e4-884f-10a9c6063d4a}*SharedItemsImports = 4
 		Adapters.Tests\Log4NetAppender.Tests.Shared\Log4NetAppender.Net40.Tests.Shared.projitems*{cdf1d886-ed10-4f99-be94-3bb40a56052e}*SharedItemsImports = 13
 		Adapters\TraceListener.Shared\TraceListener.Shared.projitems*{b6dcd83b-f8fb-4171-8996-7a402dca9fe3}*SharedItemsImports = 4
 		Adapters\NLogTarget.Shared\NLogTarget.Shared.projitems*{ea4d9fbf-02f2-4791-9f78-deb591545fee}*SharedItemsImports = 13
