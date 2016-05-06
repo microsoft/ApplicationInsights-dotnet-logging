@@ -152,6 +152,10 @@ namespace Microsoft.ApplicationInsights.NLogTarget
                 foreach (var keyValuePair in properties)
                 {
                     string key = keyValuePair.Key.ToString();
+					if (propertyBag.ContainsKey(key))
+                    {
+                        key += "_1";
+                    }
                     object valueObj = keyValuePair.Value;
                     if (valueObj != null)
                     {
