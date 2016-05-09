@@ -152,16 +152,22 @@ namespace Microsoft.ApplicationInsights.NLogTarget
                 foreach (var keyValuePair in properties)
                 {
                     string key = keyValuePair.Key.ToString();
+                    object valueObj = keyValuePair.Value;
+                    if (valueObj == null)
+                    {
+                        continue;
+                    }
+
+                    string value = valueObj.ToString();
                     if (propertyBag.ContainsKey(key))
                     {
+                        if (value == propertyBag[key])
+                        {
+                            continue;
+                        }
                         key += "_1";
                     }
-                    object valueObj = keyValuePair.Value;
-                    if (valueObj != null)
-                    {
-                        string value = valueObj.ToString();
-                        propertyBag.Add(key, value);
-                    }
+                    propertyBag.Add(key, value);
                 }
             }
         }
