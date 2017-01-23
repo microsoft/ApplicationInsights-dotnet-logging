@@ -1,0 +1,72 @@
+﻿// -----------------------------------------------------------------------
+// <copyright file="EventSourceListeningRequest.cs" company="Microsoft">
+// Copyright (c) Microsoft Corporation. 
+// All rights reserved.  2017
+// </copyright>
+// -----------------------------------------------------------------------
+
+using System.Diagnostics.Tracing;
+
+namespace Microsoft.ApplicationInsights.EventSourceListener
+{
+    /// <summary>
+    /// Represents a request to listen to specific EventSource
+    /// </summary>
+    public class EventSourceListeningRequest
+    {
+        /// <summary>
+        /// Gets or sets the name of the EventSource to listen to.
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets the minimum level of an event that will be traced. 
+        /// </summary>
+        /// <remarks>
+        /// Events with level lower than the specified level will be silently discarded.
+        /// </remarks>
+        public EventLevel Level { get; set; }
+
+        /// <summary>
+        /// Gets or sets the keywords that must be set on an event to be included in tracing.
+        /// </summary>
+        public EventKeywords Keywords { get; set; }
+
+        /// <summary>
+        /// Initializes new instance of the <see cref="EventSourceListeningRequest"/> class
+        /// </summary>
+        /// <remarks>
+        /// By default all events from an EventSource are traced. The set of events can be restricted using <see cref="Level"/> and <see cref="Keywords"/> properties.
+        /// </remarks>
+        public EventSourceListeningRequest()
+        {
+            this.Level = EventLevel.LogAlways;
+            this.Keywords = (EventKeywords)~0;
+        }
+
+        /// <summary>
+        /// Tests for equality
+        /// </summary>
+        /// <param name="obj">Object to compare with</param>
+        /// <returns>True if the supplied object is equal to "this", otherwise false</returns>
+        public override bool Equals(object obj)
+        {
+            var other = obj as EventSourceListeningRequest;
+            if (other == null)
+            {
+                return false;
+            }
+
+            return this.Name == other.Name && this.Level == other.Level && this.Keywords == other.Keywords;
+        }
+
+        /// <summary>
+        /// Gets the hash code for the current listening request
+        /// </summary>
+        /// <returns>Hash code</returns>
+        public override int GetHashCode()
+        {
+            return this.Name.GetHashCode();
+        }
+    }
+}
