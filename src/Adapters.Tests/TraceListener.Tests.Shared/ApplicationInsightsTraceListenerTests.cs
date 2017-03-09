@@ -26,7 +26,7 @@
         [TestCategory("TraceListener")]
         public void TraceListenerInitializeDoesNotThrowWhenInstrumentationKeyIsNull()
         {
-            var listener = new ApplicationInsightsTraceListener(null);
+            var listener = new ApplicationInsightsTraceListener(instrumentationKey: null);
             listener.Dispose();
         }
 
@@ -37,7 +37,7 @@
             var listener = new ApplicationInsightsTraceListener(string.Empty);
             listener.Dispose();
         }
-        
+
         [TestMethod]
         [TestCategory("TraceListener")]
         public void TraceListenerWriteUsedApplicationInsightsConfigInstrumentationKeyWhenUnspecifiedInstrumentationKey()
@@ -46,9 +46,25 @@
             // the Telemetry event is assigned with the InstrumentationKey from configuration
             TelemetryConfiguration.Active.TelemetryChannel = this.adapterHelper.Channel;
 
-            using (var listener = new ApplicationInsightsTraceListener(null))
-            {                
+            using (var listener = new ApplicationInsightsTraceListener(instrumentationKey: null))
+            {
                 this.VerifyMessagesInMockChannel(listener, this.adapterHelper.InstrumentationKey);
+            }
+        }
+
+        [TestMethod]
+        [TestCategory("TraceListener")]
+        public void TraceListenerWriteUsedTelemetryClientInstrumentationKeyWhenSpecified()
+        {
+            // Changing the channel to Mock channel to verify 
+            // the Telemetry event is assigned with the InstrumentationKey from configuration
+            TelemetryConfiguration.Active.TelemetryChannel = this.adapterHelper.Channel;
+
+            string instrumentationKey = Guid.NewGuid().ToString();
+            var telemetryClient = new TelemetryClient { InstrumentationKey = instrumentationKey };
+            using (var listener = new ApplicationInsightsTraceListener(telemetryClient))
+            {
+                this.VerifyMessagesInMockChannel(listener, instrumentationKey);
             }
         }
 
