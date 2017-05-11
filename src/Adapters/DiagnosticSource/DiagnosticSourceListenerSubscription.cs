@@ -9,7 +9,6 @@ namespace Microsoft.ApplicationInsights.DiagnosticSourceListener
     using Microsoft.ApplicationInsights.DataContracts;
     using System;
     using System.Collections.Generic;
-    using System.Reflection;
 
     internal class DiagnosticSourceListenerSubscription : IObserver<KeyValuePair<string, object>>
     {
@@ -55,7 +54,7 @@ namespace Microsoft.ApplicationInsights.DiagnosticSourceListener
             // Transfer properties from payload to telemetry
             if (payload != null)
             {
-                foreach (var property in payload.GetType().GetTypeInfo().DeclaredProperties)
+                foreach (var property in DeclaredPropertiesCache.GetDeclaredProperties(payload))
                 {
                     if (!property.IsSpecialName)
                     {
