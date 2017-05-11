@@ -53,6 +53,7 @@ namespace Microsoft.ApplicationInsights.DiagnosticSourceListener.Tests
                 Assert.AreEqual("Hey!", telemetry.Message);
                 Assert.AreEqual(testDiagnosticSource.Name, telemetry.Properties["DiagnosticSource"]);
                 Assert.AreEqual(SeverityLevel.Information, telemetry.SeverityLevel);
+                Assert.AreEqual(1234.ToString(), telemetry.Properties["Prop1"]);
                 string expectedVersion = SdkVersionHelper.GetExpectedSdkVersion(typeof(DiagnosticSourceTelemetryModule), prefix: "dsl:");
                 Assert.AreEqual(expectedVersion, telemetry.Context.GetInternalContext().SdkVersion);
             }
