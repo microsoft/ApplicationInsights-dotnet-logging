@@ -4,6 +4,5 @@
     <ItemGroup>
       <_AppInsightsConfigFile Include="@(None)" Condition="'%(Filename)%(Extension)' == 'ApplicationInsights.config'" />
     </ItemGroup>
-    <Warning Text="Can’t find ApplicationInsights.config. Without this file Application Insights may not work." Condition="@(_AppInsightsConfigFile) == ''" />
   </Target>
 </Project>
