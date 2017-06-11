@@ -369,6 +369,19 @@
             Assert.AreEqual(loggerNameVal2, traceTelemetry.Properties["LoggerName_1"]);
         }
 
+        [TestMethod]
+        [TestCategory("NLogTarget")]
+        public void TargetFlushesTelemetryClient()
+        {
+            var aiLogger = this.CreateTargetWithGivenInstrumentationKey();
+            var before = this.adapterHelper.Channel.FlushCount;
+
+            aiLogger.Factory.Flush();
+            var after = this.adapterHelper.Channel.FlushCount;
+
+            Assert.IsTrue(after - before == 1);
+        }
+
         private void VerifyMessagesInMockChannel(Logger aiLogger, string instrumentationKey)
         {
             aiLogger.Trace("Sample trace message");

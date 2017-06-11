@@ -17,6 +17,7 @@ namespace Microsoft.ApplicationInsights.NLogTarget
     using Microsoft.ApplicationInsights.Implementation;
 
     using NLog;
+    using NLog.Common;
     using NLog.Targets;
       
     /// <summary>
@@ -47,6 +48,16 @@ namespace Microsoft.ApplicationInsights.NLogTarget
         internal TelemetryClient TelemetryClient
         {
             get { return this.telemetryClient; }
+        }
+
+        /// <summary>
+        /// Flush any pending log messages asynchronously (in case of asynchronous targets).
+        /// </summary>
+        /// <param name="asyncContinuation">The asynchronous continuation.</param>
+        protected override void FlushAsync(AsyncContinuation asyncContinuation)
+        {
+            this.telemetryClient.Flush();
+            base.FlushAsync(asyncContinuation);
         }
 
         /// <summary>
