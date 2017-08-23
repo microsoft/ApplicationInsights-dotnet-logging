@@ -15,7 +15,7 @@ namespace Microsoft.ApplicationInsights.EventSourceListener.Implementation
     using Microsoft.ApplicationInsights.DataContracts;
     using Microsoft.ApplicationInsights.TraceEvent.Shared.Utilities;
 
-    internal static class EventDataExtensions
+    public static class EventDataExtensions
     {
         private static Lazy<Random> random = new Lazy<Random>();
 
@@ -30,14 +30,12 @@ namespace Microsoft.ApplicationInsights.EventSourceListener.Implementation
         };
 
         /// <summary>
-        /// Creates a TraceTelemetry out of an EventSource event and tracks it using the supplied client.
+        /// Creates a TraceTelemetry out of an EventSource event.
         /// </summary>
         /// <param name="eventSourceEvent">The source for the telemetry data.</param>
-        /// <param name="client">Client to track the data with.</param>
-        public static void Track(this EventWrittenEventArgs eventSourceEvent, TelemetryClient client)
+        /// <param name="includePayload">If false the Payload of the <see cref="EventWrittenEventArgs"/> will be excluded from the returned TraceTelemetry</param>
+        public static TraceTelemetry ToTraceTelementry(this EventWrittenEventArgs eventSourceEvent, bool includePayload = true)
         {
-            Debug.Assert(client != null, "Should always receive a valid client");
-
             string formattedMessage = null;
             if (eventSourceEvent.Message != null)
             {
@@ -52,7 +50,10 @@ namespace Microsoft.ApplicationInsights.EventSourceListener.Implementation
             }
             TraceTelemetry telemetry = new TraceTelemetry(formattedMessage, eventLevelToSeverityLevel[(int)eventSourceEvent.Level]);
 
-            eventSourceEvent.ExtractPayloadData(telemetry);
+            if (includePayload)
+            {
+                eventSourceEvent.ExtractPayloadData(telemetry);
+            }
 
             telemetry.AddProperty(nameof(EventWrittenEventArgs.EventId), eventSourceEvent.EventId.ToString(CultureInfo.InvariantCulture));
             telemetry.AddProperty(nameof(EventWrittenEventArgs.EventName), eventSourceEvent.EventName);
@@ -76,7 +77,19 @@ namespace Microsoft.ApplicationInsights.EventSourceListener.Implementation
                 telemetry.AddProperty(nameof(EventWrittenEventArgs.Task), GetHexRepresentation((int)eventSourceEvent.Task));
             }
 
-            client.Track(telemetry);
+            return telemetry;
+        }
+
+        /// <summary>
+        /// Creates a TraceTelemetry out of an EventSource event and tracks it using the supplied client.
+        /// </summary>
+        /// <param name="eventSourceEvent">The source for the telemetry data.</param>
+        /// <param name="client">Client to track the data with.</param>
+        public static void Track(this EventWrittenEventArgs eventSourceEvent, TelemetryClient client)
+        {
+            Debug.Assert(client != null, "Should always receive a valid client");
+
+            client.Track(eventSourceEvent.ToTraceTelementry(includePayload: true));
         }
 
         /// <summary>

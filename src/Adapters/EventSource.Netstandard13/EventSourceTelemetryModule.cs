@@ -18,6 +18,8 @@ namespace Microsoft.ApplicationInsights.EventSourceListener
     using Microsoft.ApplicationInsights.TraceEvent.Shared.Implementation;
     using Microsoft.ApplicationInsights.TraceEvent.Shared.Utilities;
 
+    public delegate void OnEventWrittenHandler(EventWrittenEventArgs eventArgs, TelemetryClient client);
+
     /// <summary>
     /// A module to trace data submitted via .NET framework <seealso cref="System.Diagnostics.Tracing.EventSource" /> class.
     /// </summary>
@@ -28,14 +30,26 @@ namespace Microsoft.ApplicationInsights.EventSourceListener
         // The following does not really need to be a ConcurrentQueue, but the ConcurrentQueue has a very convenient-to-use TryDequeue method.
         private ConcurrentQueue<EventSource> appDomainEventSources;
         private List<EventSource> enabledEventSources;
+        private readonly OnEventWrittenHandler onEventWrittenHandler;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EventSourceTelemetryModule"/> class.
         /// </summary>
-        public EventSourceTelemetryModule()
+        public EventSourceTelemetryModule() : this(EventDataExtensions.Track)
         {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EventSourceTelemetryModule"/> class.
+        /// </summary>
+        /// <param name="onEventWrittenHandler">Action to be executed each time an event is written to format and send via the configured <see cref="TelemetryClient"/></param>
+        public EventSourceTelemetryModule(OnEventWrittenHandler onEventWrittenHandler)
+        {
+            if (onEventWrittenHandler == null) throw new ArgumentNullException(nameof(onEventWrittenHandler));
+
             this.Sources = new List<EventSourceListeningRequest>();
             this.enabledEventSources = new List<EventSource>();
+            this.onEventWrittenHandler = onEventWrittenHandler;
         }
 
         /// <summary>
@@ -109,7 +123,7 @@ namespace Microsoft.ApplicationInsights.EventSourceListener
             // and not that useful for production tracing. However, TPL EventSource must be enabled to get hierarchical activity IDs.
             if (this.initialized && !TplActivities.TplEventSourceGuid.Equals(eventData.EventSource.Guid))
             {
-                eventData.Track(this.client);
+                this.onEventWrittenHandler(eventData, this.client);
             }
         }
 
