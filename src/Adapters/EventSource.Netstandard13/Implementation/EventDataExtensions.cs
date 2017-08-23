@@ -85,7 +85,7 @@ namespace Microsoft.ApplicationInsights.EventSourceListener.Implementation
         /// </summary>
         /// <param name="eventSourceEvent">The source for the telemetry data.</param>
         /// <param name="client">Client to track the data with.</param>
-        public static void Track(this EventWrittenEventArgs eventSourceEvent, TelemetryClient client)
+        internal static void Track(this EventWrittenEventArgs eventSourceEvent, TelemetryClient client)
         {
             Debug.Assert(client != null, "Should always receive a valid client");
 
