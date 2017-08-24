@@ -33,7 +33,7 @@ namespace Microsoft.ApplicationInsights.EventSourceListener.Implementation
         /// Creates a TraceTelemetry out of an EventSource event.
         /// </summary>
         /// <param name="eventSourceEvent">The source for the telemetry data.</param>
-        public static TraceTelemetry ToTraceTelementry(this EventWrittenEventArgs eventSourceEvent)
+        public static TraceTelemetry CreateTraceTelementry(this EventWrittenEventArgs eventSourceEvent)
         {
             string formattedMessage = null;
             if (eventSourceEvent.Message != null)
