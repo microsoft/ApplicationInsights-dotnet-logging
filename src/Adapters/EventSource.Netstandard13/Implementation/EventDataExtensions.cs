@@ -94,8 +94,8 @@ namespace Microsoft.ApplicationInsights.EventSourceListener.Implementation
             Debug.Assert(client != null, "Should always receive a valid client");
 
             var telemetry = eventSourceEvent.CreateTraceTelementry()
-                .PopulateStandardProperties(eventSourceEvent)
-                .PopulatePayloadProperties(eventSourceEvent);
+                .PopulatePayloadProperties(eventSourceEvent)
+                .PopulateStandardProperties(eventSourceEvent);
 
             client.Track(telemetry);
         }
