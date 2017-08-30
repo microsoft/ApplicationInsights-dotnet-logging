@@ -120,7 +120,14 @@ namespace Microsoft.ApplicationInsights.EventSourceListener
             // and not that useful for production tracing. However, TPL EventSource must be enabled to get hierarchical activity IDs.
             if (this.initialized && !TplActivities.TplEventSourceGuid.Equals(eventData.EventSource.Guid))
             {
-                this.onEventWrittenHandler(eventData, this.client);
+                try
+                {
+                    this.onEventWrittenHandler(eventData, this.client);
+                }
+                catch(Exception ex)
+                {
+                    EventSourceListenerEventSource.Log.OnEventWrittenHandlerFailed(nameof(EventSourceListener.EventSourceTelemetryModule), ex.ToString());
+                }
             }
         }
 
