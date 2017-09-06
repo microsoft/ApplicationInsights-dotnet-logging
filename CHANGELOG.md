@@ -1,5 +1,11 @@
 # Changelog 
 
+### Version 2.4.1
+[Hotfix release to address deadlock issue with EventSource initialization](https://github.com/Microsoft/ApplicationInsights-dotnet-logging/issues/109)
+
+### Version 2.4.0
+Update Application Insights API reference to [2.4.0]
+
 ### Version 2.4.0-beta1/2
 Update Application Insights API reference to [2.4.0-beta3]
 Added support for logs from EventSource, ETW and Diagnostic Source.
