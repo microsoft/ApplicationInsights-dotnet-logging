@@ -41,6 +41,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Common.targets = Common.targets
 		Directory.Build.props = Directory.Build.props
 		GlobalStaticVersion.props = GlobalStaticVersion.props
+		NuGet.Config = NuGet.Config
 		NuGet.targets = NuGet.targets
 		Package.targets = Package.targets
 		Settings.StyleCop = Settings.StyleCop
@@ -52,7 +53,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Log4NetAppender.Net45", "sr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NLogTarget.Net45", "src\Adapters\NLogTarget.Net45\NLogTarget.Net45.csproj", "{6C581DDA-88AF-4A64-984D-E275F2F21100}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TraceListener.Net45", "src\Adapters\TraceListener.Net45\TraceListener.Net45.csproj", "{E3766DD1-F376-43F8-B242-6CF06E186179}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TraceListener.Net45", "src\Adapters\TraceListener.Net45\TraceListener.Net45.csproj", "{E3766DD1-F376-43F8-B242-6CF06E186179}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Log4NetAppender.Net45.Tests", "src\Adapters.Tests\Log4NetAppender.Net45.Tests\Log4NetAppender.Net45.Tests.csproj", "{C537553E-C7D0-42E4-884F-10A9C6063D4A}"
 EndProject
@@ -63,8 +64,6 @@ EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Log4NetAppender.Shared", "src\Adapters\Log4NetAppender.Shared\Log4NetAppender.Shared.shproj", "{69B1C4D1-C8E9-44CA-BE2A-02B5D1929DC2}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "NLogTarget.Shared", "src\Adapters\NLogTarget.Shared\NLogTarget.Shared.shproj", "{EA4D9FBF-02F2-4791-9F78-DEB591545FEE}"
-EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "TraceListener.Shared", "src\Adapters\TraceListener.Shared\TraceListener.Shared.shproj", "{FF6230F0-A69C-4ED3-B552-26CBE31324DB}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Log4NetAppender.Tests.Shared", "src\Adapters.Tests\Log4NetAppender.Tests.Shared\Log4NetAppender.Tests.Shared.shproj", "{CDF1D886-ED10-4F99-BE94-3BB40A56052E}"
 EndProject
@@ -124,14 +123,11 @@ Global
 		src\Adapters\CommonShared\CommonShared.projitems*{cb555b89-94d7-4b38-92d9-9f497a796966}*SharedItemsImports = 4
 		src\Adapters\Log4NetAppender.Shared\Log4NetAppender.Shared.projitems*{cb555b89-94d7-4b38-92d9-9f497a796966}*SharedItemsImports = 4
 		src\Adapters.Tests\Log4NetAppender.Tests.Shared\Log4NetAppender.Net40.Tests.Shared.projitems*{cdf1d886-ed10-4f99-be94-3bb40a56052e}*SharedItemsImports = 13
-		src\Adapters\CommonShared\CommonShared.projitems*{e3766dd1-f376-43f8-b242-6cf06e186179}*SharedItemsImports = 4
-		src\Adapters\TraceListener.Shared\TraceListener.Shared.projitems*{e3766dd1-f376-43f8-b242-6cf06e186179}*SharedItemsImports = 4
 		src\Adapters.Tests\CommonTestShared\CommonTestShared.projitems*{e6f03762-6bd6-4b38-8798-42c189aab18c}*SharedItemsImports = 4
 		src\Adapters.Tests\Shared\Adapters.Shared.Tests.projitems*{e6f03762-6bd6-4b38-8798-42c189aab18c}*SharedItemsImports = 4
 		src\Adapters.Tests\TraceListener.Tests.Shared\TraceListener.Net40.Tests.Shared.projitems*{e6f03762-6bd6-4b38-8798-42c189aab18c}*SharedItemsImports = 4
 		src\Adapters\NLogTarget.Shared\NLogTarget.Shared.projitems*{ea4d9fbf-02f2-4791-9f78-deb591545fee}*SharedItemsImports = 13
 		src\Adapters.Tests\Shared\Adapters.Shared.Tests.projitems*{fa775630-7917-4a99-a78c-fba46edf685c}*SharedItemsImports = 13
-		src\Adapters\TraceListener.Shared\TraceListener.Shared.projitems*{ff6230f0-a69c-4ed3-b552-26cbe31324db}*SharedItemsImports = 13
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -233,7 +229,6 @@ Global
 		{E6F03762-6BD6-4B38-8798-42C189AAB18C} = {2FCC45B3-D820-405D-87FA-467C96465BB1}
 		{69B1C4D1-C8E9-44CA-BE2A-02B5D1929DC2} = {EE933574-C82B-4E59-A0D1-05328197B937}
 		{EA4D9FBF-02F2-4791-9F78-DEB591545FEE} = {EE933574-C82B-4E59-A0D1-05328197B937}
-		{FF6230F0-A69C-4ED3-B552-26CBE31324DB} = {EE933574-C82B-4E59-A0D1-05328197B937}
 		{CDF1D886-ED10-4F99-BE94-3BB40A56052E} = {2FCC45B3-D820-405D-87FA-467C96465BB1}
 		{6DD6F1C7-636D-41B5-8AC4-517C68F74D18} = {2FCC45B3-D820-405D-87FA-467C96465BB1}
 		{17EE52DA-5460-4BD2-A70F-529D2A94C938} = {2FCC45B3-D820-405D-87FA-467C96465BB1}
