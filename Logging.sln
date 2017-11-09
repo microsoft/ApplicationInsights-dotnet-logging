@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27019.1
+VisualStudioVersion = 15.0.27009.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Adapters", "Adapters", "{EE933574-C82B-4E59-A0D1-05328197B937}"
 EndProject
@@ -96,6 +96,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiagnosticSourceListener.Nu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiagnosticSource.Tests", "src\Adapters.Tests\DiagnosticSource.Tests\DiagnosticSource.Tests.csproj", "{A716D37C-B736-4CF0-8DF5-36BDE57DA2A5}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "TraceListener.Shared", "src\Adapters\TraceListener.Shared\TraceListener.Shared.shproj", "{FF6230F0-A69C-4ED3-B552-26CBE31324DB}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		src\Adapters.Tests\CommonTestShared\CommonTestShared.projitems*{15fa58d1-f397-4808-831c-7ae65ee640af}*SharedItemsImports = 4
@@ -128,6 +130,7 @@ Global
 		src\Adapters.Tests\TraceListener.Tests.Shared\TraceListener.Net40.Tests.Shared.projitems*{e6f03762-6bd6-4b38-8798-42c189aab18c}*SharedItemsImports = 4
 		src\Adapters\NLogTarget.Shared\NLogTarget.Shared.projitems*{ea4d9fbf-02f2-4791-9f78-deb591545fee}*SharedItemsImports = 13
 		src\Adapters.Tests\Shared\Adapters.Shared.Tests.projitems*{fa775630-7917-4a99-a78c-fba46edf685c}*SharedItemsImports = 13
+		src\Adapters\TraceListener.Shared\TraceListener.Shared.projitems*{ff6230f0-a69c-4ed3-b552-26cbe31324db}*SharedItemsImports = 13
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -243,6 +246,7 @@ Global
 		{57F41D53-A8D1-42D6-AFBE-406436CFA7DF} = {EE933574-C82B-4E59-A0D1-05328197B937}
 		{9748B531-F7A8-4F35-8C8A-2B2916C5582E} = {4765948E-1A4D-4F8E-974C-6078C746ABEC}
 		{A716D37C-B736-4CF0-8DF5-36BDE57DA2A5} = {2FCC45B3-D820-405D-87FA-467C96465BB1}
+		{FF6230F0-A69C-4ED3-B552-26CBE31324DB} = {EE933574-C82B-4E59-A0D1-05328197B937}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AC8888B1-0E98-49D7-BE15-EB97A6261C0D}
