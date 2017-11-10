@@ -13,9 +13,6 @@
 
   <ItemGroup>
     <PackageReference Include="Microbuild.Core" Version="0.2.0" />
-    <PackageReference Include="StyleCop.Analyzers">
-      <Version>1.0.2</Version>
-    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
