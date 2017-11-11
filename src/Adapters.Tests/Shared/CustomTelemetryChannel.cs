@@ -16,6 +16,7 @@ namespace Microsoft.ApplicationInsights
 
     internal class CustomTelemetryChannel : ITelemetryChannel
     {
+        private int flushCount = 0;
         private EventWaitHandle waitHandle;
 
         public CustomTelemetryChannel()
@@ -27,6 +28,11 @@ namespace Microsoft.ApplicationInsights
         public bool? DeveloperMode { get; set; }
 
         public string EndpointAddress { get; set; }
+
+        public int FlushCount
+        {
+            get { return flushCount; }
+        }
 
         public ITelemetry[] SentItems { get; private set; }
 
@@ -74,7 +80,10 @@ namespace Microsoft.ApplicationInsights
 
         public void Flush()
         {
-            throw new System.NotImplementedException();
+            lock (this)
+            {
+                ++flushCount;
+            }
         }
 
         public void Dispose()
@@ -86,6 +95,7 @@ namespace Microsoft.ApplicationInsights
             lock (this)
             {
                 this.SentItems = new ITelemetry[0];
+                this.flushCount = 0;
             }
 
             return this;
