@@ -47,6 +47,16 @@ namespace Microsoft.ApplicationInsights.TraceListener
             this.TelemetryClient.Context.GetInternalContext().SdkVersion = SdkVersionUtils.GetSdkVersion("sd:");
         }
 
+        /// <summary>
+        /// Initializes a new instance of the ApplicationInsightsTraceListener class, specifying a TelemetryClient to use
+        /// </summary>
+        /// <param name="telemetryClient">TelemetryClient to use for tracing</param>
+        public ApplicationInsightsTraceListener(TelemetryClient telemetryClient)
+        {
+            this.TelemetryClient = telemetryClient;
+            this.TelemetryClient.Context.GetInternalContext().SdkVersion = SdkVersionUtils.GetSdkVersion("sd:");
+        }
+
         internal TelemetryClient TelemetryClient { get; set; }
         
         /// <summary>
