@@ -5,11 +5,9 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 namespace Xdt.Tests
 {
+    using System;
     using System.Diagnostics;
     using System.Globalization;
     using System.IO;
@@ -18,7 +16,7 @@ namespace Xdt.Tests
     using System.Xml;
     using System.Xml.Linq;
     using System.Xml.XPath;
-
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Microsoft.Web.XmlTransform;
 
     [TestClass]
@@ -52,6 +50,36 @@ namespace Xdt.Tests
                ".Log4Net.config.install.xdt",
                ".Log4Net.config.uninstall.xdt",
                ".Log4Net.TestDataSet.xml");
+        }
+
+        [TestMethod]
+        [TestCategory("XdtTests")]
+        public void DiagnosticSourceListenerTest()
+        {
+            this.ValidateTransform(
+               ".DiagnosticSourceListener.ApplicationInsights.config.install.xdt",
+               ".DiagnosticSourceListener.ApplicationInsights.config.uninstall.xdt",
+               ".DiagnosticSourceListener.TestDataSet.xml");
+        }
+
+        [TestMethod]
+        [TestCategory("XdtTests")]
+        public void EventSourceListenerTest()
+        {
+            this.ValidateTransform(
+               ".EventSourceListener.ApplicationInsights.config.install.xdt",
+               ".EventSourceListener.ApplicationInsights.config.uninstall.xdt",
+               ".EventSourceListener.TestDataSet.xml");
+        }
+
+        [TestMethod]
+        [TestCategory("XdtTests")]
+        public void EtwCollectorTest()
+        {
+            this.ValidateTransform(
+               ".EtwCollector.ApplicationInsights.config.install.xdt",
+               ".EtwCollector.ApplicationInsights.config.uninstall.xdt",
+               ".EtwCollector.TestDataSet.xml");
         }
 
         private static string GetInnerXml(XElement element)

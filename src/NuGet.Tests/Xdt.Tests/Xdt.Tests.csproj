@@ -24,14 +24,16 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' " />
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), 'Test.props'))\Test.props" />
   <ItemGroup>
-    <Reference Include="Microsoft.ApplicationInsights, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\Microsoft.ApplicationInsights.2.2.0\lib\net45\Microsoft.ApplicationInsights.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\Microsoft.ApplicationInsights.2.5.0-beta1\lib\net45\Microsoft.ApplicationInsights.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Web.XmlTransform">
       <HintPath>..\..\..\..\packages\Microsoft.Web.Xdt.2.1.1\lib\net40\Microsoft.Web.XmlTransform.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\System.Diagnostics.DiagnosticSource.4.4.0\lib\net45\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
@@ -61,21 +63,39 @@
     <EmbeddedResource Include="..\..\NuGet\NLogTarget\config.uninstall.xdt">
       <Link>Resources\NLog\config.uninstall.xdt</Link>
     </EmbeddedResource>
-    <None Include="packages.config" />
+    <EmbeddedResource Include="..\..\NuGet\DiagnosticSourceListener\ApplicationInsights.config.install.xdt">
+      <Link>Resources\DiagnosticSourceListener\ApplicationInsights.config.install.xdt</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\NuGet\DiagnosticSourceListener\ApplicationInsights.config.uninstall.xdt">
+      <Link>Resources\DiagnosticSourceListener\ApplicationInsights.config.uninstall.xdt</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\NuGet\EventSourceListener\ApplicationInsights.config.install.xdt">
+      <Link>Resources\EventSourceListener\ApplicationInsights.config.install.xdt</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\NuGet\EventSourceListener\ApplicationInsights.config.uninstall.xdt">
+      <Link>Resources\EventSourceListener\ApplicationInsights.config.uninstall.xdt</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\NuGet\EtwCollector\ApplicationInsights.config.install.xdt">
+      <Link>Resources\EtwCollector\ApplicationInsights.config.install.xdt</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\NuGet\EtwCollector\ApplicationInsights.config.uninstall.xdt">
+      <Link>Resources\EtwCollector\ApplicationInsights.config.uninstall.xdt</Link>
+    </EmbeddedResource>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Log4Net\TestDataSet.xml" />
     <EmbeddedResource Include="Resources\NLog\TestDataSet.xml" />
     <EmbeddedResource Include="Resources\TraceListener\TestDataSet.xml" />
+    <EmbeddedResource Include="Resources\DiagnosticSourceListener\TestDataSet.xml" />
+    <EmbeddedResource Include="Resources\EventSourceListener\TestDataSet.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\EtwCollector\TestDataSet.xml" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), 'Common.targets'))\Common.targets" />
-  <Import Project="..\..\..\..\packages\StyleCop.MSBuild.4.7.55.0\build\StyleCop.MSBuild.Targets" Condition="Exists('..\..\..\..\packages\StyleCop.MSBuild.4.7.55.0\build\StyleCop.MSBuild.Targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\..\..\..\packages\StyleCop.MSBuild.4.7.55.0\build\StyleCop.MSBuild.Targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\packages\StyleCop.MSBuild.4.7.55.0\build\StyleCop.MSBuild.Targets'))" />
-  </Target>
 </Project>

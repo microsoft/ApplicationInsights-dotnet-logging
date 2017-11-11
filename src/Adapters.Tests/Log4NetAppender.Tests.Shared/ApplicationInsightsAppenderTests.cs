@@ -152,6 +152,7 @@ namespace Microsoft.ApplicationInsights.Log4NetAppender.Tests
         }
 
         [TestMethod]
+        [Ignore]
         [TestCategory("Log4NetAppender")]
         public void TelemetryIsAcceptedByValidateEndpoint()
         {
@@ -365,6 +366,7 @@ adapterComponentIdSnippet +
                 {
                     Console.WriteLine(log);
                 }
+
                 Assert.AreEqual(logCount, logs.Count);
                 if (exceptionType != null)
                 {
