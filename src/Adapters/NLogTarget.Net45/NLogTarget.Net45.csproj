@@ -12,7 +12,6 @@
     <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
 
     <TargetFrameworks>net45</TargetFrameworks>
-    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
 
     <!--https://docs.microsoft.com/en-us/nuget/schema/msbuild-targets-->
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
