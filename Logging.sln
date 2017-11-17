@@ -89,6 +89,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiagnosticSource.Tests", "s
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TraceListener.Net45", "src\Adapters\TraceListener.Net45\TraceListener.Net45.csproj", "{E3766DD1-F376-43F8-B242-6CF06E186179}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "EventSource.Shared", "src\Adapters\EventSource.Shared\EventSource.Shared\EventSource.Shared.shproj", "{A964DE6D-9750-4013-8BE2-79C2AFC056E5}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		src\Adapters.Tests\CommonTestShared\CommonTestShared.projitems*{15fa58d1-f397-4808-831c-7ae65ee640af}*SharedItemsImports = 4
@@ -105,6 +107,7 @@ Global
 		src\Adapters\EventSource.Shared\EventSource.Shared\EventSource.Shared.projitems*{9becfb0f-4f6d-4a84-931f-70da3e4e2813}*SharedItemsImports = 4
 		src\Adapters\CommonShared\CommonShared.projitems*{a539bb1d-29ff-48e8-8d6e-dfcc543dc2b4}*SharedItemsImports = 4
 		src\Adapters\EventSource.Shared\EventSource.Shared\EventSource.Shared.projitems*{a539bb1d-29ff-48e8-8d6e-dfcc543dc2b4}*SharedItemsImports = 4
+		src\Adapters\EventSource.Shared\EventSource.Shared\EventSource.Shared.projitems*{a964de6d-9750-4013-8be2-79c2afc056e5}*SharedItemsImports = 13
 		src\Adapters.Tests\CommonTestShared\CommonTestShared.projitems*{be1d6405-1930-4a19-a24c-027b008c5011}*SharedItemsImports = 4
 		src\Adapters.Tests\NLogTarget.Tests.Shared\NLogTarget.Net40.Tests.SharedProject.projitems*{be1d6405-1930-4a19-a24c-027b008c5011}*SharedItemsImports = 4
 		src\Adapters.Tests\Shared\Adapters.Shared.Tests.projitems*{be1d6405-1930-4a19-a24c-027b008c5011}*SharedItemsImports = 4
@@ -310,6 +313,7 @@ Global
 		{9748B531-F7A8-4F35-8C8A-2B2916C5582E} = {4765948E-1A4D-4F8E-974C-6078C746ABEC}
 		{A716D37C-B736-4CF0-8DF5-36BDE57DA2A5} = {2FCC45B3-D820-405D-87FA-467C96465BB1}
 		{E3766DD1-F376-43F8-B242-6CF06E186179} = {EE933574-C82B-4E59-A0D1-05328197B937}
+		{A964DE6D-9750-4013-8BE2-79C2AFC056E5} = {EE933574-C82B-4E59-A0D1-05328197B937}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AC8888B1-0E98-49D7-BE15-EB97A6261C0D}
