@@ -1,6 +1,4 @@
 ﻿<Project ToolsVersion="15.0" Sdk="Microsoft.NET.Sdk">
-  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), 'Product.props'))\Product.props" />
-
   <PropertyGroup>
     <Company>Microsoft</Company>
     <Copyright>Copyright © Microsoft. All Rights Reserved.</Copyright>
@@ -18,6 +16,7 @@
     <RootNamespace>Microsoft.ApplicationInsights.TraceListener</RootNamespace>
     <AssemblyName>Microsoft.ApplicationInsights.TraceListener</AssemblyName>
   </PropertyGroup>
+  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), 'Product.props'))\Product.props" />
 
   <ItemGroup>
     <PackageReference Include="Desktop.Analyzers" Version="1.1.0">
