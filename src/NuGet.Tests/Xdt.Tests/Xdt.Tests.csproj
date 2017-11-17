@@ -69,10 +69,10 @@
     <EmbeddedResource Include="..\..\Adapters\DiagnosticSource\ApplicationInsights.config.uninstall.xdt">
       <Link>Resources\DiagnosticSourceListener\ApplicationInsights.config.uninstall.xdt</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\..\NuGet\EventSourceListener\ApplicationInsights.config.install.xdt">
+    <EmbeddedResource Include="..\..\Adapters\EventSource.Netstandard13\ApplicationInsights.config.install.xdt">
       <Link>Resources\EventSourceListener\ApplicationInsights.config.install.xdt</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\..\NuGet\EventSourceListener\ApplicationInsights.config.uninstall.xdt">
+    <EmbeddedResource Include="..\..\Adapters\EventSource.Netstandard13\ApplicationInsights.config.uninstall.xdt">
       <Link>Resources\EventSourceListener\ApplicationInsights.config.uninstall.xdt</Link>
     </EmbeddedResource>
     <EmbeddedResource Include="..\..\Adapters\Etw.Net451\ApplicationInsights.config.install.xdt">
