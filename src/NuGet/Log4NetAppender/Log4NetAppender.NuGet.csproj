@@ -16,7 +16,7 @@
     <NoWarn>2008</NoWarn>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
     <PackageSpecFile>$(MSBuildProjectDirectory)\Package.nuspec</PackageSpecFile>
-    <PackageVersionFile>$(BinRoot)\$(Configuration)\src\Adapters\Log4NetAppender.Net45\net451\Microsoft.ApplicationInsights.Log4NetAppender.dll</PackageVersionFile>
+    <PackageVersionFile>$(BinRoot)\$(Configuration)\src\Adapters\Log4NetAppender.Net45\net45\Microsoft.ApplicationInsights.Log4NetAppender.dll</PackageVersionFile>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
