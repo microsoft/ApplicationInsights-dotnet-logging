@@ -46,7 +46,5 @@
 
   <Import Project="..\CommonShared\CommonShared.projitems" Label="Shared" />
 
-  <Import Project="..\NLogTarget.Shared\NLogTarget.Shared.projitems" Label="Shared" />
-
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), 'Common.targets'))\Common.targets" />
 </Project>

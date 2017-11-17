@@ -46,8 +46,6 @@
 
   <Import Project="..\CommonShared\CommonShared.projitems" Label="Shared" />
 
-  <Import Project="..\Log4NetAppender.Shared\Log4NetAppender.Shared.projitems" Label="Shared" />
-
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), 'Common.targets'))\Common.targets" />
 </Project>
 
