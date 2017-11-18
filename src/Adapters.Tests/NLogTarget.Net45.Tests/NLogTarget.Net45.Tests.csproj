@@ -5,7 +5,6 @@
     <AssemblyName>Microsoft.ApplicationInsights.NLogTarget.Net45.Tests</AssemblyName>
     <TargetFramework>net45</TargetFramework>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <ProjectGuid>be1d6405-1930-4a19-a24c-027b008c5011</ProjectGuid>
   </PropertyGroup>
 
   <ItemGroup>

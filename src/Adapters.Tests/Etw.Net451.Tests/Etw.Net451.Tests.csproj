@@ -5,7 +5,6 @@
     <AssemblyName>Microsoft.ApplicationInsights.EtwCollector.Net451.Tests</AssemblyName>
     <TargetFramework>net46</TargetFramework>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <ProjectGuid>{15FA58D1-F397-4808-831C-7AE65EE640AF}</ProjectGuid>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,7 +13,6 @@
     <PackageReference Include="MSTest.TestFramework" Version="1.1.13" />
     <PackageReference Include="Microsoft.ApplicationInsights" Version="2.5.0-beta1" />
     <PackageReference Include="Microbuild.Core" Version="0.2.0">
-      <IncludeAssets>All</IncludeAssets>
       <PrivateAssets>All</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Diagnostics.Tracing.TraceEvent" Version="1.0.41" />

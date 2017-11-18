@@ -4,7 +4,6 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7030CAC6-4B94-4735-B146-C0FC3097ACA6}</ProjectGuid>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Microsoft.ApplicationInsights.EventSourceListener.Tests</RootNamespace>
     <AssemblyName>Microsoft.ApplicationInsights.EventSourceListener.Tests</AssemblyName>
