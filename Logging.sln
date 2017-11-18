@@ -39,6 +39,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		NuGet.Config = NuGet.Config
 		NuGet.targets = NuGet.targets
 		Package.targets = Package.targets
+		src\Adapters\Product.props = src\Adapters\Product.props
 		Signing.targets = Signing.targets
 		Test.props = Test.props
 	EndProjectSection
@@ -47,11 +48,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Log4NetAppender.Net45", "sr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NLogTarget.Net45", "src\Adapters\NLogTarget.Net45\NLogTarget.Net45.csproj", "{6C581DDA-88AF-4A64-984D-E275F2F21100}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Log4NetAppender.Net45.Tests", "src\Adapters.Tests\Log4NetAppender.Net45.Tests\Log4NetAppender.Net45.Tests.csproj", "{C537553E-C7D0-42E4-884F-10A9C6063D4A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Log4NetAppender.Net45.Tests", "src\Adapters.Tests\Log4NetAppender.Net45.Tests\Log4NetAppender.Net45.Tests.csproj", "{C537553E-C7D0-42E4-884F-10A9C6063D4A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NLogTarget.Net45.Tests", "src\Adapters.Tests\NLogTarget.Net45.Tests\NLogTarget.Net45.Tests.csproj", "{BE1D6405-1930-4A19-A24C-027B008C5011}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NLogTarget.Net45.Tests", "src\Adapters.Tests\NLogTarget.Net45.Tests\NLogTarget.Net45.Tests.csproj", "{BE1D6405-1930-4A19-A24C-027B008C5011}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TraceListener.Net45.Tests", "src\Adapters.Tests\TraceListener.Net45.Tests\TraceListener.Net45.Tests.csproj", "{E6F03762-6BD6-4B38-8798-42C189AAB18C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TraceListener.Net45.Tests", "src\Adapters.Tests\TraceListener.Net45.Tests\TraceListener.Net45.Tests.csproj", "{E6F03762-6BD6-4B38-8798-42C189AAB18C}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "CommonShared", "src\Adapters\CommonShared\CommonShared.shproj", "{587B624B-8C64-498E-93D7-A2D2ABC17EAB}"
 EndProject
@@ -61,7 +62,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventSource.Netstandard13.T
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Etw.Net451", "src\Adapters\Etw.Net451\Etw.Net451.csproj", "{9BECFB0F-4F6D-4A84-931F-70DA3E4E2813}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Etw.Net451.Tests", "src\Adapters.Tests\Etw.Net451.Tests\Etw.Net451.Tests.csproj", "{15FA58D1-F397-4808-831C-7AE65EE640AF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Etw.Net451.Tests", "src\Adapters.Tests\Etw.Net451.Tests\Etw.Net451.Tests.csproj", "{15FA58D1-F397-4808-831C-7AE65EE640AF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventSource.Netstandard13", "src\Adapters\EventSource.Netstandard13\EventSource.Netstandard13.csproj", "{A539BB1D-29FF-48E8-8D6E-DFCC543DC2B4}"
 EndProject
