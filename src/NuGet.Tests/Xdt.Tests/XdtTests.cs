@@ -44,11 +44,21 @@ namespace Xdt.Tests
 
         [TestMethod]
         [TestCategory("XdtTests")]
-        public void XdtLog4NetTest()
+        public void XdtLog4NetWebTest()
         {
             this.ValidateTransform(
-               ".Log4Net.config.install.xdt",
-               ".Log4Net.config.uninstall.xdt",
+               ".Log4Net.web.config.install.xdt",
+               ".Log4Net.web.config.uninstall.xdt",
+               ".Log4Net.TestDataSet.xml");
+        }
+
+        [TestMethod]
+        [TestCategory("XdtTests")]
+        public void XdtLog4NetAppTest()
+        {
+            this.ValidateTransform(
+               ".Log4Net.app.config.install.xdt",
+               ".Log4Net.app.config.uninstall.xdt",
                ".Log4Net.TestDataSet.xml");
         }
 
