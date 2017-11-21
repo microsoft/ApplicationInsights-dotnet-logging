@@ -41,11 +41,17 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="..\..\NuGet\TraceListener\config.install.xdt">
-      <Link>Resources\TraceListener\config.install.xdt</Link>
+    <EmbeddedResource Include="..\..\Adapters\TraceListener.Net45\app.config.install.xdt">
+      <Link>Resources\TraceListener\app.config.install.xdt</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\..\NuGet\TraceListener\config.uninstall.xdt">
-      <Link>Resources\TraceListener\config.uninstall.xdt</Link>
+    <EmbeddedResource Include="..\..\Adapters\TraceListener.Net45\app.config.uninstall.xdt">
+      <Link>Resources\TraceListener\app.config.uninstall.xdt</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\Adapters\TraceListener.Net45\web.config.install.xdt">
+      <Link>Resources\TraceListener\web.config.install.xdt</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\Adapters\TraceListener.Net45\web.config.uninstall.xdt">
+      <Link>Resources\TraceListener\web.config.uninstall.xdt</Link>
     </EmbeddedResource>
     <EmbeddedResource Include="..\..\Adapters\Log4NetAppender.Net45\web.config.install.xdt">
       <Link>Resources\Log4Net\web.config.install.xdt</Link>
@@ -59,11 +65,17 @@
     <EmbeddedResource Include="..\..\Adapters\Log4NetAppender.Net45\app.config.uninstall.xdt">
       <Link>Resources\Log4Net\app.config.uninstall.xdt</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\..\NuGet\NLogTarget\config.install.xdt">
-      <Link>Resources\NLog\config.install.xdt</Link>
+    <EmbeddedResource Include="..\..\Adapters\NLogTarget.Net45\app.config.install.xdt">
+      <Link>Resources\NLog\app.config.install.xdt</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\..\NuGet\NLogTarget\config.uninstall.xdt">
-      <Link>Resources\NLog\config.uninstall.xdt</Link>
+    <EmbeddedResource Include="..\..\Adapters\NLogTarget.Net45\app.config.uninstall.xdt">
+      <Link>Resources\NLog\app.config.uninstall.xdt</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\Adapters\NLogTarget.Net45\web.config.install.xdt">
+      <Link>Resources\NLog\web.config.install.xdt</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\Adapters\NLogTarget.Net45\web.config.uninstall.xdt">
+      <Link>Resources\NLog\web.config.uninstall.xdt</Link>
     </EmbeddedResource>
     <EmbeddedResource Include="..\..\Adapters\DiagnosticSource\ApplicationInsights.config.install.xdt">
       <Link>Resources\DiagnosticSourceListener\ApplicationInsights.config.install.xdt</Link>

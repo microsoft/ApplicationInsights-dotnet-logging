@@ -24,21 +24,41 @@ namespace Xdt.Tests
     {
         [TestMethod]
         [TestCategory("XdtTests")]
-        public void XdtTraceListenerTest()
+        public void XdtTraceListenerAppTest()
         {
             this.ValidateTransform(
-                ".TraceListener.config.install.xdt",
-                ".TraceListener.config.uninstall.xdt",
+                ".TraceListener.app.config.install.xdt",
+                ".TraceListener.app.config.uninstall.xdt",
                 ".TraceListener.TestDataSet.xml");
         }
 
         [TestMethod]
         [TestCategory("XdtTests")]
-        public void XdtNlogTest()
+        public void XdtTraceListenerWebTest()
         {
             this.ValidateTransform(
-                ".NLog.config.install.xdt",
-                ".NLog.config.uninstall.xdt",
+                ".TraceListener.web.config.install.xdt",
+                ".TraceListener.web.config.uninstall.xdt",
+                ".TraceListener.TestDataSet.xml");
+        }
+
+        [TestMethod]
+        [TestCategory("XdtTests")]
+        public void XdtNlogAppTest()
+        {
+            this.ValidateTransform(
+                ".NLog.app.config.install.xdt",
+                ".NLog.app.config.uninstall.xdt",
+                ".NLog.TestDataSet.xml");
+        }
+
+        [TestMethod]
+        [TestCategory("XdtTests")]
+        public void XdtNlogWebTest()
+        {
+            this.ValidateTransform(
+                ".NLog.web.config.install.xdt",
+                ".NLog.web.config.uninstall.xdt",
                 ".NLog.TestDataSet.xml");
         }
 
