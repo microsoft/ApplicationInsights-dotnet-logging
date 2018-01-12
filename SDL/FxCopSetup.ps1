@@ -25,8 +25,10 @@ function IsFileDependency {
 # these are dlls that end up in the bin, but do not belong to us and don't need to be scanned.
 $excludedFiles = @("KernelTraceControl.dll", "msdia140");
 $dependencyFiles = @(
+    "Microsoft.ApplicationInsights.dll",
     "log4net.dll",
-    "NLog.dll"
+    "NLog.dll",
+    "Microsoft.Diagnostics.Tracing.TraceEvent.dll",
     "System.Diagnostics.DiagnosticSource.dll");
 
 Write-Host "`nPARAMETERS:";
