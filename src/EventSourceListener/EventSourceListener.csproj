@@ -26,10 +26,10 @@
     <GenerateAdditionalSources>false</GenerateAdditionalSources>
   </PropertyGroup>
 
-  <!--<PropertyGroup Condition="'$(Configuration)'=='Release'">
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
-  </PropertyGroup>-->
+  </PropertyGroup>
 
   <ItemGroup>
     <Content Include="ApplicationInsights.config.install.xdt" />
