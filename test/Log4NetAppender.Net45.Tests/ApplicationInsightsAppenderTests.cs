@@ -162,7 +162,20 @@ namespace Microsoft.ApplicationInsights.Log4NetAppender.Tests
 
             Assert.IsNull(TelemetrySender.ValidateEndpointSend(telemetry));
         }
-        
+
+        [TestMethod]
+        [TestCategory("Log4NetAppender")]
+        public void Log4NetDoesNotSetAuthenticatedUser()
+        {
+            this.appendableLogger.Logger.Debug("Trace Debug");
+
+            var sentItems = this.appendableLogger.SentItems;
+            Assert.AreEqual(1, sentItems.Length);
+
+            var telemetry = (TraceTelemetry)sentItems[0];
+            Assert.IsNull(telemetry.Context.User.AuthenticatedUserId);
+        }
+
         [TestMethod]
         [TestCategory("Log4NetAppender")]
         public void Log4NetAddsCustomProperties()
