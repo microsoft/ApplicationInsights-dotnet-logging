@@ -23,8 +23,8 @@ Application Insights logging adapters.
 If you use NLog, log4Net or System.Diagnostics.Trace for diagnostic tracing in your  application, you can have your logs sent to Application Insights, where you can explore and search them. Your logs will be merged with the other telemetry coming from your application, so that you can identify the traces associated with servicing each user request, and correlate them with other events and exception reports.
 
 Read more:
-- [Microsoft Docs: "Explore .NET trace logs in Application Insights"](https://docs.microsoft.com/en-us/azure/application-insights/app-insights-asp-net-trace-logs)
-- [Microsoft Docs: "Diagnose sudden changes in your app telemetry"](https://docs.microsoft.com/en-us/azure/application-insights/app-insights-analytics-diagnostics#trace)
+- [Microsoft Docs: "Explore .NET trace logs in Application Insights"](https://docs.microsoft.com/azure/application-insights/app-insights-asp-net-trace-logs)
+- [Microsoft Docs: "Diagnose sudden changes in your app telemetry"](https://docs.microsoft.com/azure/application-insights/app-insights-analytics-diagnostics#trace)
 
 ## NLog
 Application Insights NLog Target nuget package adds ApplicationInsights target in your web.config (If you use application type that does not have web.config you can install the package but you need to configure ApplicationInsights programmatically; see below). 
@@ -111,14 +111,14 @@ System.Diagnostics.Trace.TraceWarning("Slow response - database01");
 
 `EventSourceTelemetryModule` allows you to configure EventSource events to be sent to Application Insights as traces. 
 
-For more information, see ["Using EventSource Events"](https://docs.microsoft.com/en-us/azure/application-insights/app-insights-asp-net-trace-logs#using-eventsource-events).
+For more information, see ["Using EventSource Events"](https://docs.microsoft.com/azure/application-insights/app-insights-asp-net-trace-logs#using-eventsource-events).
 
 
 ## ETW
 
 `EtwCollectorTelemetryModule` allows you to configure events from ETW providers to be sent to Application Insights as traces. 
 
-For more information, see ["Using ETW Events"](https://docs.microsoft.com/en-us/azure/application-insights/app-insights-asp-net-trace-logs#using-etw-events).
+For more information, see ["Using ETW Events"](https://docs.microsoft.com/azure/application-insights/app-insights-asp-net-trace-logs#using-etw-events).
 
 
 ## DiagnosticSource
