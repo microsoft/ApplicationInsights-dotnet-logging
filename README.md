@@ -85,6 +85,8 @@ logger.Error("An error message");
 
 Microsoft.ApplicationInsights.TraceListener nuget package modifies web.config and adds application insights listener. 
 
+For more information, see ["Microsoft Docs: "Tracing and Instrumenting Applications"](https://docs.microsoft.com/dotnet/framework/debug-trace-profile/tracing-and-instrumenting-applications)
+
 ```
 <configuration>
   <system.diagnostics>
@@ -111,20 +113,23 @@ System.Diagnostics.Trace.TraceWarning("Slow response - database01");
 
 `EventSourceTelemetryModule` allows you to configure EventSource events to be sent to Application Insights as traces. 
 
-For more information, see ["Using EventSource Events"](https://docs.microsoft.com/azure/application-insights/app-insights-asp-net-trace-logs#using-eventsource-events).
+For more information, see [Microsoft Docs: "Using EventSource Events"](https://docs.microsoft.com/azure/application-insights/app-insights-asp-net-trace-logs#using-eventsource-events).
 
 
 ## ETW
 
 `EtwCollectorTelemetryModule` allows you to configure events from ETW providers to be sent to Application Insights as traces. 
 
-For more information, see ["Using ETW Events"](https://docs.microsoft.com/azure/application-insights/app-insights-asp-net-trace-logs#using-etw-events).
+For more information, see [Microsoft Docs: "Using ETW Events"](https://docs.microsoft.com/azure/application-insights/app-insights-asp-net-trace-logs#using-etw-events).
 
 
 ## DiagnosticSource
 
 You can configure `System.Diagnostics.DiagnosticSource` events to be sent to Application Insights as traces.
-Edit the `TelemetryModules` section of the ApplicationInsights.config file:
+
+For more information, see [CoreFX: "Diagnostic Source Users Guide"](https://github.com/dotnet/corefx/blob/master/src/System.Diagnostics.DiagnosticSource/src/DiagnosticSourceUsersGuide.md).
+
+To enable, edit the `TelemetryModules` section of the ApplicationInsights.config file:
 
 ```
 <Add Type="Microsoft.ApplicationInsights.DiagnsoticSourceListener.DiagnosticSourceTelemetryModule, Microsoft.ApplicationInsights.DiagnosticSourceListener">
@@ -133,7 +138,4 @@ Edit the `TelemetryModules` section of the ApplicationInsights.config file:
       </Sources>
  </Add>
  ```
-
-For more information, see ["Diagnostic Source Users Guide"](https://github.com/dotnet/corefx/blob/master/src/System.Diagnostics.DiagnosticSource/src/DiagnosticSourceUsersGuide.md).
-
 
