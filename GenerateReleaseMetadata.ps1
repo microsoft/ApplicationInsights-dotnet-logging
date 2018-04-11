@@ -1,13 +1,13 @@
 Param(
-    [Parameter(Mandatory=$false,HelpMessage="Path to Artifact files (nupkg, nuspec, changelog):")]
+    [Parameter(Mandatory=$true,HelpMessage="Path to Artifact files (nupkg):")]
     [string]
-    $artifactsPath = "C:\Users\tilee\Desktop\ReleaseTest",
-    [Parameter(Mandatory=$false,HelpMessage="Path to Artifact files (nupkg, nuspec, changelog):")]
+    $artifactsPath,
+    [Parameter(Mandatory=$true,HelpMessage="Path to Source files (changelog):")]
     [string]
-    $sourcePath = "C:\Users\tilee\Desktop\ReleaseTest",
-    [Parameter(Mandatory=$false,HelpMessage="Path to Artifact files (nupkg, nuspec, changelog):")]
+    $sourcePath,
+    [Parameter(Mandatory=$false,HelpMessage="Path to save metadata:")]
     [string]
-    $outPath = "C:\Users\tilee\Desktop\ReleaseTest"
+    $outPath
 ) 
 
 class PackageInfo {
@@ -30,6 +30,8 @@ class ReleaseInfo {
     [string]$ReleaseName
     [string]$ReleaseVersion
     [string]$NuspecVersion
+    [string]$FormattedReleaseName
+    [bool]$IsPreRelease
     [string]$CommitId
     [string]$ChangeLog
     [PackageInfo[]]$Packages
@@ -100,6 +102,10 @@ function Get-ReleaseMetaData ([string]$artifactsPath, [string]$sourcePath) {
     $object.NuspecVersion = $object.Packages[0].NuspecVersion
     $object.ReleaseName = Get-NuspecVersionName($object.Packages[0].NuspecVersion)
     $object.ReleaseVersion = $object.Packages[0].DllVersion
+
+    $object.FormattedReleaseName = "$($object.ReleaseName) ($($object.ReleaseVersion))"
+
+    $object.IsPreRelease = [bool]($object.ReleaseName -like "*beta*")
     
     $object.ChangeLog = Get-ChangelogText $sourcePath $object.ReleaseName
     return $object
@@ -111,7 +117,8 @@ Function Get-ChangelogText ([string]$sourcePath, [string]$versionName) {
     $readFile = $true
 
     $changelogPath = Get-ChildItem -Path $sourcePath -Recurse -Filter changelog.md | Select-Object -First 1
-    Get-Content -Path $changelogPath | ForEach-Object {
+    Write-Verbose "Changelog Found: $changelogPath"
+    Get-Content -Path $changelogPath.FullName | ForEach-Object {
         
         if($readFile) {
         
@@ -151,8 +158,11 @@ Function Save-ToXml([string]$outPath, [ReleaseInfo]$object) {
      
     $XmlWriter.WriteElementString("ReleaseName", $object.ReleaseName)
     $XmlWriter.WriteElementString("ReleaseVersion", $object.ReleaseVersion)
+    $XmlWriter.WriteElementString("FormattedReleaseName", $object.FormattedReleaseName)
     $XmlWriter.WriteElementString("NuspecVersion", $object.NuspecVersion)
+    $XmlWriter.WriteElementString("IsPreRelease", $object.IsPreRelease)
     $XmlWriter.WriteElementString("CommitId", $object.CommitId)
+    
     $XmlWriter.WriteElementString("ChangeLog", $object.ChangeLog)
     
     $XmlWriter.WriteStartElement("Packages")
