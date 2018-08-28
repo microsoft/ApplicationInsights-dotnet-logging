@@ -56,6 +56,16 @@ namespace Microsoft.ApplicationInsights.NLogTarget
         public IList<TargetPropertyWithContext> ContextProperties { get; } = new List<TargetPropertyWithContext>();
 
         /// <summary>
+        /// Gets or sets the Application Insights Cloud RoleName for your application. 
+        /// </summary>
+        public string CloudRoleName { get; set; }
+        
+         /// <summary>
+        /// Gets or sets the Application Insights Cloud RoleInstance for your application. 
+        /// </summary>
+        public string CloudRoleInstance { get; set; }
+        
+        /// <summary>
         /// Gets the logging controller we will be using.
         /// </summary>
         internal TelemetryClient TelemetryClient
@@ -120,7 +130,14 @@ namespace Microsoft.ApplicationInsights.NLogTarget
             {
                 this.telemetryClient.Context.InstrumentationKey = instrumentationKey;
             }
-
+            if (!string.IsNullOrEmpty(this.CloudRoleName))
+            {
+                this.telemetryClient.Context.Cloud.RoleName = this.CloudRoleName;
+            }
+            if (!string.IsNullOrEmpty(this.CloudRoleInstance))
+            {
+                this.telemetryClient.Context.Cloud.RoleInstance = this.CloudRoleInstance;
+            }
             this.telemetryClient.Context.GetInternalContext().SdkVersion = SdkVersionUtils.GetSdkVersion("nlog:");
         }
 
