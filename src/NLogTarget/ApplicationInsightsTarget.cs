@@ -13,6 +13,7 @@ namespace Microsoft.ApplicationInsights.NLogTarget
 
     using Microsoft.ApplicationInsights.Channel;
     using Microsoft.ApplicationInsights.DataContracts;
+    using Microsoft.ApplicationInsights.Extensibility;
     using Microsoft.ApplicationInsights.Extensibility.Implementation;
     using Microsoft.ApplicationInsights.Implementation;
 
@@ -28,6 +29,7 @@ namespace Microsoft.ApplicationInsights.NLogTarget
     [Target("ApplicationInsightsTarget")]
     public sealed class ApplicationInsightsTarget : TargetWithLayout
     {
+        private readonly TelemetryConfiguration telemetryConfiguration;
         private TelemetryClient telemetryClient;
         private DateTime lastLogEventTime;
         private NLog.Layouts.Layout instrumentationKeyLayout = string.Empty;
@@ -35,9 +37,11 @@ namespace Microsoft.ApplicationInsights.NLogTarget
         /// <summary>
         /// Initializers a new instance of ApplicationInsightsTarget type.
         /// </summary>
-        public ApplicationInsightsTarget()
+        /// <param name="config">Application Insights telemetry configuration to use.</param>
+        public ApplicationInsightsTarget(TelemetryConfiguration config = null)
         {
             this.Layout = @"${message}";
+            this.telemetryConfiguration = config;
         }
 
         /// <summary>
@@ -113,7 +117,7 @@ namespace Microsoft.ApplicationInsights.NLogTarget
         protected override void InitializeTarget()
         {
             base.InitializeTarget();
-            this.telemetryClient = new TelemetryClient();
+            this.telemetryClient = new TelemetryClient(this.telemetryConfiguration);
 
             string instrumentationKey = this.instrumentationKeyLayout.Render(LogEventInfo.CreateNullEvent());
             if (!string.IsNullOrWhiteSpace(instrumentationKey))

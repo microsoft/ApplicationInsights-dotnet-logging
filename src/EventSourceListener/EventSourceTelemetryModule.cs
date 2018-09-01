@@ -32,12 +32,12 @@ namespace Microsoft.ApplicationInsights.EventSourceListener
         private const string AppInsightsDataEventSource = "Microsoft-ApplicationInsights-Data";
 
         private readonly OnEventWrittenHandler onEventWrittenHandler;
+        private readonly ConcurrentQueue<EventSource> enabledEventSources;
         private OnEventWrittenHandler eventWrittenHandlerPicker;
 
         private TelemetryClient client;
         private bool initialized; // Relying on the fact that default value in .NET Framework is false
         private ConcurrentQueue<EventSource> appDomainEventSources;
-        private ConcurrentQueue<EventSource> enabledEventSources;
         private ConcurrentDictionary<string, bool> enabledOrDisabledEventSourceTestResultCache;
 
         /// <summary>
@@ -53,16 +53,11 @@ namespace Microsoft.ApplicationInsights.EventSourceListener
         /// <param name="onEventWrittenHandler">Action to be executed each time an event is written to format and send via the configured <see cref="TelemetryClient"/></param>
         public EventSourceTelemetryModule(OnEventWrittenHandler onEventWrittenHandler)
         {
-            if (onEventWrittenHandler == null)
-            {
-                throw new ArgumentNullException(nameof(onEventWrittenHandler));
-            }
-
             this.Sources = new List<EventSourceListeningRequest>();
             this.DisabledSources = new List<DisableEventSourceRequest>();
 
             this.enabledEventSources = new ConcurrentQueue<EventSource>();
-            this.onEventWrittenHandler = onEventWrittenHandler;
+            this.onEventWrittenHandler = onEventWrittenHandler ?? throw new ArgumentNullException(nameof(onEventWrittenHandler));
         }
 
         /// <summary>

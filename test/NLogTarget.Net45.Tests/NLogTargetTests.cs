@@ -69,7 +69,7 @@
         {
             string instrumentationKey = "93d9c2b7-e633-4571-8520-d391511a1df5";
 
-            Action<Logger> loggerAction = aiLogger => aiLogger.Trace("Hello World");
+            void loggerAction(Logger aiLogger) => aiLogger.Trace("Hello World");
             this.CreateTargetWithGivenInstrumentationKey(instrumentationKey, loggerAction);
         }
 
@@ -122,8 +122,7 @@
             var telemetry = (TraceTelemetry)this.adapterHelper.Channel.SentItems.FirstOrDefault();
             Assert.IsNotNull(telemetry, "Didn't get the log event from the channel");
 
-            string loggerName;
-            telemetry.Properties.TryGetValue("LoggerName", out loggerName);
+            telemetry.Properties.TryGetValue("LoggerName", out string loggerName);
             Assert.AreEqual("AITarget", loggerName);
         }
 
@@ -173,8 +172,10 @@
         [TestCategory("NLogTarget")]
         public void TraceMessageCanBeFormedUsingLayout()
         {
-            ApplicationInsightsTarget target = new ApplicationInsightsTarget();
-            target.Layout = @"${uppercase:${level}} ${message}";
+            ApplicationInsightsTarget target = new ApplicationInsightsTarget
+            {
+                Layout = @"${uppercase:${level}} ${message}"
+            };
 
             Logger aiLogger = this.CreateTargetWithGivenInstrumentationKey("test", null, target);
 
@@ -450,7 +451,7 @@
 
             var flushEvent = new System.Threading.ManualResetEvent(false);
             Exception flushException = null;
-            NLog.Common.AsyncContinuation asyncContinuation = (ex) => { flushException = ex; flushEvent.Set(); };
+            void asyncContinuation(Exception ex) { flushException = ex; flushEvent.Set(); }
             aiLogger.Factory.Flush(asyncContinuation, 5000);
             Assert.IsTrue(flushEvent.WaitOne(5000));
             Assert.IsNotNull(flushException);

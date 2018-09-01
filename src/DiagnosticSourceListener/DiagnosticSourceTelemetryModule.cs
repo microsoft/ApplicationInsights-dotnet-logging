@@ -49,12 +49,7 @@ namespace Microsoft.ApplicationInsights.DiagnosticSourceListener
         /// <param name="onEventWrittenHandler">Action to be executed each time an event is written to format and send via the configured <see cref="TelemetryClient"/></param>
         public DiagnosticSourceTelemetryModule(OnEventWrittenHandler onEventWrittenHandler)
         {
-            if (onEventWrittenHandler == null)
-            {
-                throw new ArgumentNullException(nameof(onEventWrittenHandler));
-            }
-
-            this.onEventWrittenHandler = onEventWrittenHandler;
+            this.onEventWrittenHandler = onEventWrittenHandler ?? throw new ArgumentNullException(nameof(onEventWrittenHandler));
         }
 
         /// <summary>
