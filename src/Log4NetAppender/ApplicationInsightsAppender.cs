@@ -16,6 +16,7 @@ namespace Microsoft.ApplicationInsights.Log4NetAppender
 
     using Microsoft.ApplicationInsights.Channel;
     using Microsoft.ApplicationInsights.DataContracts;
+    using Microsoft.ApplicationInsights.Extensibility;
     using Microsoft.ApplicationInsights.Extensibility.Implementation;
     using Microsoft.ApplicationInsights.Implementation;
 
@@ -26,7 +27,26 @@ namespace Microsoft.ApplicationInsights.Log4NetAppender
         Justification = "Releasing the resources on the close method")]
     public sealed class ApplicationInsightsAppender : AppenderSkeleton
     {
+        private readonly TelemetryConfiguration telemetryConfiguration;
+
         private TelemetryClient telemetryClient;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ApplicationInsightsAppender"/> class.
+        /// </summary>
+        public ApplicationInsightsAppender()
+            : this(TelemetryConfiguration.Active)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ApplicationInsightsAppender"/> class.
+        /// </summary>
+        /// <param name="config">Application Insights telemetry configuration to use.</param>
+        public ApplicationInsightsAppender(TelemetryConfiguration config)
+        {
+            this.telemetryConfiguration = config ?? TelemetryConfiguration.Active;
+        }
 
         /// <summary>
         /// Gets or sets The Application Insights instrumentationKey for your application. 
@@ -56,7 +76,7 @@ namespace Microsoft.ApplicationInsights.Log4NetAppender
         public override void ActivateOptions()
         {
             base.ActivateOptions();
-            this.telemetryClient = new TelemetryClient();
+            this.telemetryClient = new TelemetryClient(this.telemetryConfiguration);
             if (!string.IsNullOrEmpty(this.InstrumentationKey))
             {
                 this.telemetryClient.Context.InstrumentationKey = this.InstrumentationKey;

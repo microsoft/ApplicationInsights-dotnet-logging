@@ -14,6 +14,7 @@ namespace Microsoft.ApplicationInsights.TraceListener
     using System.Linq;
 
     using Microsoft.ApplicationInsights.DataContracts;
+    using Microsoft.ApplicationInsights.Extensibility;
     using Microsoft.ApplicationInsights.Extensibility.Implementation;
     using Microsoft.ApplicationInsights.Implementation;
 
@@ -24,21 +25,14 @@ namespace Microsoft.ApplicationInsights.TraceListener
     public sealed class ApplicationInsightsTraceListener : TraceListener
     {
         /// <summary>
-        /// Initializes a new instance of the ApplicationInsightsTraceListener class, without specifying
-        /// an instrumentation key.
-        /// </summary>
-        public ApplicationInsightsTraceListener() : this(string.Empty)
-        {
-        }
-
-        /// <summary>
         /// Initializes a new instance of the ApplicationInsightsTraceListener class.
         /// If empty or null instrumentation key is passed, it will fall back to the one specified in ApplicationInsights.config file.
         /// </summary>
         /// <param name="instrumentationKey">Instrumentation Key of your application.</param>
-        public ApplicationInsightsTraceListener(string instrumentationKey)
+        /// <param name="config">Application Insights telemetry configuration to use.</param>
+        public ApplicationInsightsTraceListener(string instrumentationKey = "", TelemetryConfiguration config = null)
         {
-            this.TelemetryClient = new TelemetryClient();
+            this.TelemetryClient = new TelemetryClient(config ?? TelemetryConfiguration.Active);
             if (!string.IsNullOrEmpty(instrumentationKey))
             {
                 this.TelemetryClient.Context.InstrumentationKey = instrumentationKey;
