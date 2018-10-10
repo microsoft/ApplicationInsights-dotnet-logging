@@ -100,20 +100,14 @@ namespace Microsoft.ApplicationInsights.Log4NetAppender
             }
         }
 
-        private static void BuildCustomProperties(LoggingEvent loggingEvent, ITelemetry trace)
+        private static void PopulateTelemetryProperties(LoggingEvent loggingEvent, ITelemetry telemetry)
         {
-            trace.Timestamp = loggingEvent.TimeStamp;
+            telemetry.Timestamp = loggingEvent.TimeStamp;
+        }
 
-            IDictionary<string, string> metaData;
-            
-            if (trace is ExceptionTelemetry)
-            {
-                metaData = ((ExceptionTelemetry)trace).Properties;
-            }
-            else
-            {
-                metaData = ((TraceTelemetry)trace).Properties;
-            }
+        private static void PopulateTelemetryPropertyBag(LoggingEvent loggingEvent, ISupportProperties telemetryItem)
+        {
+            IDictionary<string, string> metaData = telemetryItem.Properties;
 
             AddLoggingEventProperty("LoggerName", loggingEvent.LoggerName, metaData);
             AddLoggingEventProperty("ThreadName", loggingEvent.ThreadName, metaData);
@@ -197,7 +191,8 @@ namespace Microsoft.ApplicationInsights.Log4NetAppender
                     exceptionTelemetry.Properties.Add("Message", message);
                 }
 
-                BuildCustomProperties(loggingEvent, exceptionTelemetry);
+                PopulateTelemetryProperties(loggingEvent, exceptionTelemetry);
+                PopulateTelemetryPropertyBag(loggingEvent, exceptionTelemetry);
                 this.telemetryClient.Track(exceptionTelemetry);
             }
             catch (ArgumentNullException exception)
@@ -218,7 +213,8 @@ namespace Microsoft.ApplicationInsights.Log4NetAppender
                     SeverityLevel = GetSeverityLevel(loggingEvent.Level)
                 };
 
-                BuildCustomProperties(loggingEvent, trace);
+                PopulateTelemetryProperties(loggingEvent, trace);
+                PopulateTelemetryPropertyBag(loggingEvent, trace);
                 this.telemetryClient.Track(trace);
             }
             catch (ArgumentNullException exception)
