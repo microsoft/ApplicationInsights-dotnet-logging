@@ -63,21 +63,14 @@ namespace Microsoft.ApplicationInsights.NLogTarget
             get { return this.telemetryClient; }
         }
 
-        internal void BuildPropertyBag(LogEventInfo logEvent, ITelemetry trace)
+        internal void BuildPropertyBag(LogEventInfo logEvent, ITelemetry telemetryItem)
         {
-            trace.Timestamp = logEvent.TimeStamp;
-            trace.Sequence = logEvent.SequenceID.ToString(CultureInfo.InvariantCulture);
+            telemetryItem.Timestamp = logEvent.TimeStamp;
+            telemetryItem.Sequence = logEvent.SequenceID.ToString(CultureInfo.InvariantCulture);
 
-            IDictionary<string, string> propertyBag;
-
-            if (trace is ExceptionTelemetry)
-            {
-                propertyBag = ((ExceptionTelemetry)trace).Properties;
-            }
-            else
-            {
-                propertyBag = ((TraceTelemetry)trace).Properties;
-            }
+            var telemetryWithProperties = telemetryItem as ISupportProperties;
+            IDictionary<string, string> propertyBag = telemetryWithProperties.Properties;
+            IDictionary<string, string> contextPropertyBag = telemetryItem.Context.GlobalProperties;
 
             if (!string.IsNullOrEmpty(logEvent.LoggerName))
             {
@@ -90,19 +83,26 @@ namespace Microsoft.ApplicationInsights.NLogTarget
                 propertyBag.Add("UserStackFrameNumber", logEvent.UserStackFrameNumber.ToString(CultureInfo.InvariantCulture));
             }
 
+            // Populate Global Properties
             for (int i = 0; i < this.ContextProperties.Count; ++i)
             {
                 var contextProperty = this.ContextProperties[i];
                 if (!string.IsNullOrEmpty(contextProperty.Name))
                 {
                     string propertyValue = contextProperty.Layout?.Render(logEvent);
-                    PopulatePropertyBag(propertyBag, contextProperty.Name, propertyValue);
+                    PopulateGlobalPropertyBag(contextPropertyBag, contextProperty.Name, propertyValue);
                 }
             }
 
-            if (logEvent.HasProperties)
+            // Populate Individual Properties
+            if (logEvent.HasProperties && logEvent.Properties?.Count > 0)
             {
-                LoadLogEventProperties(logEvent, propertyBag);
+                foreach (var keyValuePair in logEvent.Properties)
+                {
+                    string key = keyValuePair.Key.ToString();
+                    object valueObj = keyValuePair.Value;
+                    PopulateIndividualPropertyBag(propertyBag, contextPropertyBag, key, valueObj);
+                }
             }
         }
 
@@ -174,20 +174,7 @@ namespace Microsoft.ApplicationInsights.NLogTarget
             }
         }
 
-        private static void LoadLogEventProperties(LogEventInfo logEvent, IDictionary<string, string> propertyBag)
-        {
-            if (logEvent.Properties?.Count > 0)
-            {
-                foreach (var keyValuePair in logEvent.Properties)
-                {
-                    string key = keyValuePair.Key.ToString();
-                    object valueObj = keyValuePair.Value;
-                    PopulatePropertyBag(propertyBag, key, valueObj);
-                }
-            }
-        }
-
-        private static void PopulatePropertyBag(IDictionary<string, string> propertyBag, string key, object valueObj)
+        private static void PopulateGlobalPropertyBag(IDictionary<string, string> globalPropertyBag, string key, object valueObj)
         {
             if (valueObj == null)
             {
@@ -195,9 +182,34 @@ namespace Microsoft.ApplicationInsights.NLogTarget
             }
 
             string value = Convert.ToString(valueObj, CultureInfo.InvariantCulture);
+            globalPropertyBag.Add(key, value);
+        }
+
+        /// <summary>
+        /// If a property exists in the global property bag, append "_1" before adding to individual property bag
+        /// </summary>
+        private static void PopulateIndividualPropertyBag(IDictionary<string, string> propertyBag, IDictionary<string, string> globalPropertyBag, string key, object valueObj)
+        {
+            if (valueObj == null)
+            {
+                return;
+            }
+
+            string value = Convert.ToString(valueObj, CultureInfo.InvariantCulture);
+
             if (propertyBag.ContainsKey(key))
             {
                 if (string.Equals(value, propertyBag[key], StringComparison.Ordinal))
+                {
+                    return;
+                }
+
+                key += "_1";
+            }
+
+            if (globalPropertyBag.ContainsKey(key))
+            {
+                if (string.Equals(value, globalPropertyBag[key], StringComparison.Ordinal))
                 {
                     return;
                 }

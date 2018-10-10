@@ -227,9 +227,13 @@
             var telemetry = (TraceTelemetry)this.adapterHelper.Channel.SentItems.FirstOrDefault();
             Assert.IsNotNull(telemetry, "Didn't get the log event from the channel");
 
-            Assert.AreEqual("Value", telemetry.Context.Properties["Name"]);
-        }
+#pragma warning disable CS0618 // Type or member is obsolete
+            Assert.AreEqual("Value", telemetry.Context.Properties["Name"]); // [BACKWARDS COMPAT] context properties are set
+#pragma warning restore CS0618 // Type or member is obsolete
 
+
+            Assert.AreEqual("Value", telemetry.Properties["Name"]); // local properties are set
+        }
 
         [TestMethod]
         [TestCategory("NLogTarget")]
@@ -243,9 +247,15 @@
             aiLogger.Debug("Message");
 
             var telemetry = (TraceTelemetry)this.adapterHelper.Channel.SentItems.FirstOrDefault();
-            Assert.AreEqual("global_value", telemetry.Context.Properties["global_prop"]);
-        }
 
+#pragma warning disable CS0618 // Type or member is obsolete
+            Assert.AreEqual("global_value", telemetry.Context.Properties["global_prop"]); // [BACKWARDS COMPAT] context properties are set
+#pragma warning restore CS0618 // Type or member is obsolete
+
+            Assert.AreEqual("global_value", telemetry.Context.GlobalProperties["global_prop"]); // global properties are set
+            Assert.AreEqual("global_value", telemetry.Properties["global_prop"]); // global properties are copied to local properties
+        }
+        
         [TestMethod]
         [TestCategory("NLogTarget")]
         public void GlobalDiagnosticContextPropertiesSupplementEventProperties()
@@ -261,8 +271,14 @@
             aiLogger.Log(eventInfo);
 
             var telemetry = (TraceTelemetry)this.adapterHelper.Channel.SentItems.FirstOrDefault();
-            Assert.AreEqual("global_value", telemetry.Context.Properties["global_prop"]);
-            Assert.AreEqual("Value", telemetry.Context.Properties["Name"]);
+
+#pragma warning disable CS0618 // Type or member is obsolete
+            Assert.AreEqual("global_value", telemetry.Context.Properties["global_prop"]);  // [BACKWARDS COMPAT] context properties are set
+#pragma warning restore CS0618 // Type or member is obsolete
+
+            Assert.AreEqual("global_value", telemetry.Context.GlobalProperties["global_prop"]); // global properties are set.
+            Assert.AreEqual("global_value", telemetry.Properties["global_prop"]); // global properties are copied to local properties
+            Assert.AreEqual("Value", telemetry.Properties["Name"]); // local properties are set
         }
 
         [TestMethod]
@@ -281,9 +297,16 @@
             aiLogger.Log(eventInfo);
 
             var telemetry = (TraceTelemetry)this.adapterHelper.Channel.SentItems.FirstOrDefault();
-            Assert.IsTrue(telemetry.Context.Properties.ContainsKey("Name_1"), "Key name altered");
-            Assert.AreEqual("Global Value", telemetry.Context.Properties["Name"]);
-            Assert.AreEqual("Value", telemetry.Context.Properties["Name_1"]);
+
+#pragma warning disable CS0618 // Type or member is obsolete
+            Assert.IsTrue(telemetry.Context.Properties.ContainsKey("Name")); // [BACKWARDS COMPAT] // global properties are set on context properties
+            Assert.AreEqual("Global Value", telemetry.Context.GlobalProperties["Name"]); // [BACKWARDS COMPAT] // global properties are set on context properties
+            Assert.IsTrue(telemetry.Context.Properties.ContainsKey("Name_1"), "Key name altered"); // [BACKWARDS COMPAT] local properties are set on context properties with "_1"
+            Assert.AreEqual("Value", telemetry.Context.Properties["Name_1"]); // [BACKWARDS COMPAT] local properties are set on context properties with "_1"
+#pragma warning restore CS0618 // Type or member is obsolete
+
+            Assert.AreEqual("Global Value", telemetry.Context.GlobalProperties["Name"]); // global properties are set.
+            Assert.AreEqual("Value", telemetry.Properties["Name_1"]); // local properties are set with "_1"
         }
 
         [TestMethod]

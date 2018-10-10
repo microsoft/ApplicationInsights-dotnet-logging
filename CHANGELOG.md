@@ -1,5 +1,8 @@
 # Changelog 
 
+### Version 2.8.0
+- NLog will support new Context.GlobalProperties field added in BaseSDK 2.8.0 (TODO: LINK)
+
 ### Version 2.7.2
 - [NLog can perform Layout of InstrumentationKey](https://github.com/Microsoft/ApplicationInsights-dotnet-logging/pull/203)
 - Upgrade `System.Diagnostics.DiagnosticSource` to version 4.5.0
