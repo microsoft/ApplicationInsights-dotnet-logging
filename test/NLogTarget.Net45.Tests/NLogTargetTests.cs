@@ -226,12 +226,7 @@
 
             var telemetry = (TraceTelemetry)this.adapterHelper.Channel.SentItems.FirstOrDefault();
             Assert.IsNotNull(telemetry, "Didn't get the log event from the channel");
-
-#pragma warning disable CS0618 // Type or member is obsolete
-            Assert.AreEqual("Value", telemetry.Context.Properties["Name"]); // [BACKWARDS COMPAT] context properties are set
-#pragma warning restore CS0618 // Type or member is obsolete
-
-            // TODO: Implement Context.GlobalProperties
+            Assert.AreEqual("Value", telemetry.Properties["Name"]); 
         }
 
 
@@ -247,12 +242,7 @@
             aiLogger.Debug("Message");
 
             var telemetry = (TraceTelemetry)this.adapterHelper.Channel.SentItems.FirstOrDefault();
-
-#pragma warning disable CS0618 // Type or member is obsolete
-            Assert.AreEqual("global_value", telemetry.Context.Properties["global_prop"]); // [BACKWARDS COMPAT] context properties are set
-#pragma warning restore CS0618 // Type or member is obsolete
-
-            // TODO: Implement Context.GlobalProperties
+            Assert.AreEqual("global_value", telemetry.Properties["global_prop"]);
         }
 
         [TestMethod]
@@ -270,13 +260,8 @@
             aiLogger.Log(eventInfo);
 
             var telemetry = (TraceTelemetry)this.adapterHelper.Channel.SentItems.FirstOrDefault();
-
-#pragma warning disable CS0618 // Type or member is obsolete
-            Assert.AreEqual("global_value", telemetry.Context.Properties["global_prop"]); // [BACKWARDS COMPAT] context properties are set
-            Assert.AreEqual("Value", telemetry.Context.Properties["Name"]); // [BACKWARDS COMPAT] local properties are set
-#pragma warning restore CS0618 // Type or member is obsolete
-
-            // TODO: Implement Context.GlobalProperties
+            Assert.AreEqual("global_value", telemetry.Properties["global_prop"]); 
+            Assert.AreEqual("Value", telemetry.Properties["Name"]); 
         }
 
         [TestMethod]
@@ -295,15 +280,10 @@
             aiLogger.Log(eventInfo);
 
             var telemetry = (TraceTelemetry)this.adapterHelper.Channel.SentItems.FirstOrDefault();
-
-#pragma warning disable CS0618 // Type or member is obsolete
-            Assert.IsTrue(telemetry.Context.Properties.ContainsKey("Name")); // [BACKWARDS COMPAT] // global properties are set on context properties
-            Assert.AreEqual("Global Value", telemetry.Context.Properties["Name"]); // [BACKWARDS COMPAT] // global properties are set on context properties
-            Assert.IsTrue(telemetry.Context.Properties.ContainsKey("Name_1"), "Key name altered"); // [BACKWARDS COMPAT] local properties are set on context properties with "_1"
-            Assert.AreEqual("Value", telemetry.Context.Properties["Name_1"]); // [BACKWARDS COMPAT] local properties are set on context properties with "_1"
-#pragma warning restore CS0618 // Type or member is obsolete
-
-            // TODO: Implement Context.GlobalProperties
+            Assert.IsTrue(telemetry.Properties.ContainsKey("Name")); 
+            Assert.AreEqual("Global Value", telemetry.Properties["Name"]); 
+            Assert.IsTrue(telemetry.Properties.ContainsKey("Name_1"), "Key name altered"); 
+            Assert.AreEqual("Value", telemetry.Properties["Name_1"]); 
         }
 
         [TestMethod]
