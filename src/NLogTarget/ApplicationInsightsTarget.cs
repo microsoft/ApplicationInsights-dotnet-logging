@@ -63,46 +63,31 @@ namespace Microsoft.ApplicationInsights.NLogTarget
             get { return this.telemetryClient; }
         }
 
-        internal void BuildPropertyBag(LogEventInfo logEvent, ITelemetry trace)
+        internal void BuildPropertyBag(LogEventInfo logEvent, ITelemetry telemetryItem)
         {
-            trace.Timestamp = logEvent.TimeStamp;
-            trace.Sequence = logEvent.SequenceID.ToString(CultureInfo.InvariantCulture);
+            telemetryItem.Timestamp = logEvent.TimeStamp;
+            telemetryItem.Sequence = logEvent.SequenceID.ToString(CultureInfo.InvariantCulture);
 
-            IDictionary<string, string> propertyBag;
+            var telemetryWithProperties = telemetryItem as ISupportProperties;
+            IDictionary<string, string> propertyBag = telemetryWithProperties.Properties;
+            IDictionary<string, string> contextGlobalPropertyBag = telemetryItem.Context.GlobalProperties;
 
-            if (trace is ExceptionTelemetry)
-            {
-                propertyBag = ((ExceptionTelemetry)trace).Properties;
-            }
-            else
-            {
-                propertyBag = ((TraceTelemetry)trace).Properties;
-            }
+            // Populate LogEvent Properties
+            PopulateLogEventProperties(propertyBag, logEvent);
 
-            if (!string.IsNullOrEmpty(logEvent.LoggerName))
+            // Populate Global Properties
+            foreach (var contextProperty in this.ContextProperties)
             {
-                propertyBag.Add("LoggerName", logEvent.LoggerName);
+                PopulateGlobalPropertyBag(contextGlobalPropertyBag, contextProperty, logEvent);
             }
 
-            if (logEvent.UserStackFrame != null)
+            // Populate Individual Properties from LogEvent
+            if (logEvent.HasProperties && logEvent.Properties?.Count > 0)
             {
-                propertyBag.Add("UserStackFrame", logEvent.UserStackFrame.ToString());
-                propertyBag.Add("UserStackFrameNumber", logEvent.UserStackFrameNumber.ToString(CultureInfo.InvariantCulture));
-            }
-
-            for (int i = 0; i < this.ContextProperties.Count; ++i)
-            {
-                var contextProperty = this.ContextProperties[i];
-                if (!string.IsNullOrEmpty(contextProperty.Name))
+                foreach (var keyValuePair in logEvent.Properties)
                 {
-                    string propertyValue = contextProperty.Layout?.Render(logEvent);
-                    PopulatePropertyBag(propertyBag, contextProperty.Name, propertyValue);
+                    PopulatePropertyBag(propertyBag, keyValuePair);
                 }
-            }
-
-            if (logEvent.HasProperties)
-            {
-                LoadLogEventProperties(logEvent, propertyBag);
             }
         }
 
@@ -174,21 +159,25 @@ namespace Microsoft.ApplicationInsights.NLogTarget
             }
         }
 
-        private static void LoadLogEventProperties(LogEventInfo logEvent, IDictionary<string, string> propertyBag)
+        private static void PopulateLogEventProperties(IDictionary<string, string> propertyBag, LogEventInfo logEvent)
         {
-            if (logEvent.Properties?.Count > 0)
+            if (!string.IsNullOrEmpty(logEvent.LoggerName))
             {
-                foreach (var keyValuePair in logEvent.Properties)
-                {
-                    string key = keyValuePair.Key.ToString();
-                    object valueObj = keyValuePair.Value;
-                    PopulatePropertyBag(propertyBag, key, valueObj);
-                }
+                propertyBag.Add("LoggerName", logEvent.LoggerName);
+            }
+
+            if (logEvent.UserStackFrame != null)
+            {
+                propertyBag.Add("UserStackFrame", logEvent.UserStackFrame.ToString());
+                propertyBag.Add("UserStackFrameNumber", logEvent.UserStackFrameNumber.ToString(CultureInfo.InvariantCulture));
             }
         }
 
-        private static void PopulatePropertyBag(IDictionary<string, string> propertyBag, string key, object valueObj)
+        private static void PopulatePropertyBag(IDictionary<string, string> propertyBag, KeyValuePair<object, object> keyValuePair)
         {
+            string key = keyValuePair.Key.ToString();
+            object valueObj = keyValuePair.Value;
+
             if (valueObj == null)
             {
                 return;
@@ -206,6 +195,23 @@ namespace Microsoft.ApplicationInsights.NLogTarget
             }
 
             propertyBag.Add(key, value);
+        }
+
+        private static void PopulateGlobalPropertyBag(IDictionary<string, string> globalPropertyBag, TargetPropertyWithContext contextProperty, LogEventInfo logEvent)
+        {
+            string key = contextProperty.Name;
+            if (string.IsNullOrEmpty(key))
+            {
+                return;
+            }
+
+            string value = contextProperty.Layout?.Render(logEvent);
+            if (value == null)
+            {
+                return;
+            }
+
+            globalPropertyBag.Add(key, value);
         }
 
         private static SeverityLevel? GetSeverityLevel(LogLevel logEventLevel)
