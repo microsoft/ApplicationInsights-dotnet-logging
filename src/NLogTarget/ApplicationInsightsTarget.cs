@@ -58,9 +58,10 @@ namespace Microsoft.ApplicationInsights.NLogTarget
         /// <summary>
         /// Gets the logging controller we will be using.
         /// </summary>
-        internal TelemetryClient TelemetryClient
+        [NLogConfigurationIgnoreProperty]
+        public TelemetryClient TelemetryClient
         {
-            get { return this.telemetryClient; }
+            get { return this.telemetryClient ?? (this.telemetryClient = CreateTelemetryClient()); }
         }
 
         internal void BuildPropertyBag(LogEventInfo logEvent, ITelemetry trace)
@@ -113,15 +114,14 @@ namespace Microsoft.ApplicationInsights.NLogTarget
         protected override void InitializeTarget()
         {
             base.InitializeTarget();
-            this.telemetryClient = new TelemetryClient();
+
+            var client = this.TelemetryClient;  // Ensure creation
 
             string instrumentationKey = this.instrumentationKeyLayout.Render(LogEventInfo.CreateNullEvent());
             if (!string.IsNullOrWhiteSpace(instrumentationKey))
             {
-                this.telemetryClient.Context.InstrumentationKey = instrumentationKey;
+                client.Context.InstrumentationKey = instrumentationKey;
             }
-
-            this.telemetryClient.Context.GetInternalContext().SdkVersion = SdkVersionUtils.GetSdkVersion("nlog:");
         }
 
         /// <summary>
@@ -155,7 +155,7 @@ namespace Microsoft.ApplicationInsights.NLogTarget
         {
             try
             {
-                this.TelemetryClient.Flush();
+                this.telemetryClient.Flush();
                 if (DateTime.UtcNow.AddSeconds(-30) > this.lastLogEventTime)
                 {
                     // Nothing has been written, so nothing to wait for
@@ -172,6 +172,13 @@ namespace Microsoft.ApplicationInsights.NLogTarget
             {
                 asyncContinuation(ex);
             }
+        }
+
+        private static TelemetryClient CreateTelemetryClient()
+        {
+            var client = new TelemetryClient();
+            client.Context.GetInternalContext().SdkVersion = SdkVersionUtils.GetSdkVersion("nlog:");
+            return client;
         }
 
         private static void LoadLogEventProperties(LogEventInfo logEvent, IDictionary<string, string> propertyBag)
