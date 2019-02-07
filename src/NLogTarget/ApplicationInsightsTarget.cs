@@ -13,6 +13,7 @@ namespace Microsoft.ApplicationInsights.NLogTarget
 
     using Microsoft.ApplicationInsights.Channel;
     using Microsoft.ApplicationInsights.DataContracts;
+    using Microsoft.ApplicationInsights.Extensibility;
     using Microsoft.ApplicationInsights.Extensibility.Implementation;
     using Microsoft.ApplicationInsights.Implementation;
 
@@ -119,6 +120,10 @@ namespace Microsoft.ApplicationInsights.NLogTarget
             if (!string.IsNullOrWhiteSpace(instrumentationKey))
             {
                 this.telemetryClient.Context.InstrumentationKey = instrumentationKey;
+            }
+            else if (!string.IsNullOrWhiteSpace(TelemetryConfiguration.Active.InstrumentationKey))
+            {
+                this.telemetryClient.Context.InstrumentationKey = TelemetryConfiguration.Active.InstrumentationKey;
             }
 
             this.telemetryClient.Context.GetInternalContext().SdkVersion = SdkVersionUtils.GetSdkVersion("nlog:");
