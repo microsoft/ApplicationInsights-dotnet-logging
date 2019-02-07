@@ -120,6 +120,10 @@ namespace Microsoft.ApplicationInsights.NLogTarget
             {
                 this.telemetryClient.Context.InstrumentationKey = instrumentationKey;
             }
+            else if (!string.IsNullOrWhiteSpace(TelemetryConfiguration.Active.InstrumentationKey))
+            {
+                this.telemetryClient.Context.InstrumentationKey = TelemetryConfiguration.Active.InstrumentationKey;
+            }
 
             this.telemetryClient.Context.GetInternalContext().SdkVersion = SdkVersionUtils.GetSdkVersion("nlog:");
         }
