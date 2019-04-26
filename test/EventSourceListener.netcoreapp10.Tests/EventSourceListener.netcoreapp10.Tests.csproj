@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Microsoft.ApplicationInsights.EventSourceListener.Tests</RootNamespace>
-    <AssemblyName>Microsoft.ApplicationInsights.EventSourceListener.Tests</AssemblyName>
+    <AssemblyName>Microsoft.ApplicationInsights.EventSourceListener.NetCoreApp10.Tests</AssemblyName>
     <TargetFramework>netcoreapp1.0</TargetFramework>
     <FileAlignment>512</FileAlignment>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
