@@ -66,7 +66,7 @@ namespace Microsoft.ApplicationInsights
 
             Assert.AreEqual("Testing", (itemsReceived[0] as TraceTelemetry).Message);
             Assert.AreEqual("ExceptionMessage", (itemsReceived[1] as ExceptionTelemetry).Message);
-            Assert.AreEqual("LoggerMessage", (itemsReceived[1] as ExceptionTelemetry).Properties["{OriginalFormat}"]);
+            Assert.AreEqual("LoggerMessage", (itemsReceived[1] as ExceptionTelemetry).Properties["FormattedMessage"]);
             Assert.AreEqual("TestingEvent", (itemsReceived[2] as TraceTelemetry).Message);
             Assert.AreEqual("Critical", (itemsReceived[3] as TraceTelemetry).Message);
             Assert.AreEqual("Trace", (itemsReceived[4] as TraceTelemetry).Message);
@@ -100,7 +100,7 @@ namespace Microsoft.ApplicationInsights
 
             Assert.AreEqual("Testing", (itemsReceived[0] as TraceTelemetry).Message);
             Assert.AreEqual("ExceptionMessage", (itemsReceived[1] as ExceptionTelemetry).Message);
-            Assert.AreEqual("LoggerMessage", (itemsReceived[1] as ExceptionTelemetry).Properties["{OriginalFormat}"]);
+            Assert.AreEqual("LoggerMessage", (itemsReceived[1] as ExceptionTelemetry).Properties["FormattedMessage"]);
         }
 
         /// <summary>

@@ -101,6 +101,7 @@ namespace Microsoft.Extensions.Logging.ApplicationInsights
                         SeverityLevel = ApplicationInsightsLogger.GetSeverityLevel(logLevel),
                     };
 
+                    exceptionTelemetry.Properties.Add("FormattedMessage", formatter(state, exception));
                     this.PopulateTelemetry(exceptionTelemetry, state, eventId);
                     this.telemetryClient.TrackException(exceptionTelemetry);
                 }
