@@ -9,7 +9,7 @@
     <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
 
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <TargetFrameworks>net451</TargetFrameworks>
+    <TargetFrameworks>net45</TargetFrameworks>
 
     <!--https://docs.microsoft.com/en-us/nuget/schema/msbuild-targets-->
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
