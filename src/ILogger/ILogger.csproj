@@ -30,10 +30,6 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <GenerateAdditionalSources>false</GenerateAdditionalSources>
-  </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="Microsoft.ApplicationInsights" Version="2.11.0-beta1" />
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.2">

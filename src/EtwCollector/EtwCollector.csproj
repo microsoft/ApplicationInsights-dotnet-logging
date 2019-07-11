@@ -5,9 +5,6 @@
   <PropertyGroup>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <TargetFrameworks>net451</TargetFrameworks>
-
-    <!--https://docs.microsoft.com/en-us/nuget/schema/msbuild-targets-->
-    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     <RootNamespace>Microsoft.ApplicationInsights.EtwCollector</RootNamespace>
     <AssemblyName>Microsoft.ApplicationInsights.EtwCollector</AssemblyName>
 

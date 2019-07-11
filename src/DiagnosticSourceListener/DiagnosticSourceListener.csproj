@@ -22,10 +22,6 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <GenerateAdditionalSources>false</GenerateAdditionalSources>
-  </PropertyGroup>
-  
   <ItemGroup>
     <Content Include="ApplicationInsights.config.install.xdt" />
     <Content Include="ApplicationInsights.config.uninstall.xdt" />

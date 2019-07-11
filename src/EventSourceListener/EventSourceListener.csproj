@@ -18,10 +18,6 @@
     <PackageTags>$(PackageTags) ASP.NET ASMX Web Azure Server Services ASPX Websites Role Logging Log Tracing EventSource EventSourceListener</PackageTags>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <GenerateAdditionalSources>false</GenerateAdditionalSources>
-  </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)'=='Release'">
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
