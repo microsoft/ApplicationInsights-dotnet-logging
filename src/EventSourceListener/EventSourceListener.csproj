@@ -1,11 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard1.3</TargetFramework>
+    <RootNamespace>Microsoft.ApplicationInsights.EventSourceListener</RootNamespace>
+    <AssemblyName>Microsoft.ApplicationInsights.EventSourceListener</AssemblyName>
+  </PropertyGroup>
+  
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), 'Product.props'))\Product.props" />
   <Import Project="..\..\Nupkg.props" />
   
   <PropertyGroup>
-    <RootNamespace>Microsoft.ApplicationInsights.EventSourceListener</RootNamespace>
-    <AssemblyName>Microsoft.ApplicationInsights.EventSourceListener</AssemblyName>
-    <TargetFramework>netstandard1.3</TargetFramework>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>

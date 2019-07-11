@@ -1,12 +1,14 @@
 ﻿<Project ToolsVersion="15.0" Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net45;netstandard1.3</TargetFrameworks>
+    <RootNamespace>Microsoft.ApplicationInsights.NLogTarget</RootNamespace>
+    <AssemblyName>Microsoft.ApplicationInsights.NLogTarget</AssemblyName>
+  </PropertyGroup>
+  
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), 'Product.props'))\Product.props" />
   <Import Project="..\..\Nupkg.props" />
 
   <PropertyGroup>
-    <TargetFrameworks>net45;netstandard1.3</TargetFrameworks>
-
-    <RootNamespace>Microsoft.ApplicationInsights.NLogTarget</RootNamespace>
-    <AssemblyName>Microsoft.ApplicationInsights.NLogTarget</AssemblyName>
     <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
 

@@ -1,12 +1,14 @@
 ﻿<Project ToolsVersion="15.0" Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net45;netstandard1.3</TargetFrameworks>
+    <RootNamespace>Microsoft.ApplicationInsights.Log4NetAppender</RootNamespace>
+    <AssemblyName>Microsoft.ApplicationInsights.Log4NetAppender</AssemblyName>
+  </PropertyGroup>
+
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), 'Product.props'))\Product.props" />
   <Import Project="..\..\Nupkg.props" />
 
   <PropertyGroup>
-    <TargetFrameworks>net45;netstandard1.3</TargetFrameworks>
-
-    <RootNamespace>Microsoft.ApplicationInsights.Log4NetAppender</RootNamespace>
-    <AssemblyName>Microsoft.ApplicationInsights.Log4NetAppender</AssemblyName>
     <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
 
