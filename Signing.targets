@@ -8,7 +8,7 @@
   <ItemDefinitionGroup>
     <FilesToSign>
       <!-- Microsoft authenticode certificate for all file types -->
-      <Authenticode Condition="'%(FilesToSign.Authenticode)' == ''">400</Authenticode>
+      <Authenticode Condition="'%(FilesToSign.Authenticode)' == ''">Microsoft400</Authenticode>
       <!-- Microsoft strong-name key for managed assemblies -->
       <StrongName Condition="'$(TargetExt)' == '.winmdobj' OR '$(TargetExt)' == '.dll' OR '$(TargetExt)' == '.exe'">MsSharedLib72</StrongName>
     </FilesToSign>
