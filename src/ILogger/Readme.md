@@ -201,3 +201,22 @@ services.AddApplicationInsightsTelemetry("ikeyhere");
 In this example, the configuration used by `ApplicationInsightsLoggerProvider` is the same as used by regular application monitoring. This means that both `ILogger` traces and other telemetry (Requests, Dependencies etc) will be running the same set of `TelemetryInitializers`, `TelemetryProcessors`, and `TelemetryChannel`. They will correlated and sampled/not sampled in the same way.
 
 There is an exception to this, however. The default `TelemetryConfiguration` is not fully setup when logging something from `Program.cs` or `Startup.cs` itself, so those logs will not be have the default configuration. However, every other logs (e.g. logs from Controllers, Models etc.) would share the configuration.
+
+## How do I log custom telemetry manually?
+
+When you use the standalone package, `TelemetryClient` is not injected to the DI container, so you need to create a new instance of `TelemetryClient` and use the same configuration as the logger provider uses, as the following code shows. This ensures that the same configuration is used for all custom telemetry as well as telemetry from ILogger.
+
+```csharp
+public class MyController : ApiController
+{
+   // This telemtryclient can be used to track additional telemetry using TrackXXX() api.
+   private readonly TelemetryClient _telemetryClient;
+   private readonly ILogger _logger;
+
+   public MyController(IOptions<TelemetryConfiguration> options, ILogger<MyController> logger)
+   {
+        _telemetryClient = new TelemetryClient(options.Value);
+        _logger = logger;
+   }  
+}
+```
